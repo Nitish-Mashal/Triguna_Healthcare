@@ -1,0 +1,14 @@
+{
+ "allow_cors": "*",
+ "db_name": "_aa7985bab099494c",
+ "db_password": "UvpiT7ZZgsLfab9I",
+ "db_type": "mariadb",
+ "developer_mode": 1,
+ "encryption_key": "_zfAdMeQHSkQxBYkjFXlAZYLSA9EscVeYFNQdw7QoAU=",
+ "push_relay_server_url": "https://push.frappe.io",
+ "revan_api_key": "b127ee4745237fa",
+ "revan_api_secret": "bfcdc757ba348fc",
+ "user_type_doctype_limit": {
+ "employee_self_service": 40
+ }
+}

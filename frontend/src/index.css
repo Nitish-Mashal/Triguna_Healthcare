@@ -1,0 +1,16 @@
+@import './assets/Inter/inter.css';
+@import 'frappe-ui/src/style.css';
+
+
+/* Global background color class */
+.global-bg-color {
+    background-color: #2077BF; /* background color */
+}
+
+.bold-test-color {
+  color: #001D55 !important;
+}
+
+.global-text-color {
+    color: #2077BF !important; /* background color */
+}
