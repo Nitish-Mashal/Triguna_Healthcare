@@ -13,7 +13,6 @@ import Navbar from './Navbar.vue'
 import Footer from './Footer.vue';
 import ScrollToTop from './ScrollToTop.vue';
 import WhatsappFloat from './WhatsappFloat.vue';
-import HeaderTag from './HeaderTag.vue';
 
 import { onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

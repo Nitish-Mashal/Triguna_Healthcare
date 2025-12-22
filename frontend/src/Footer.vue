@@ -91,12 +91,12 @@ import axios from "axios";
 
 /* ✅ Static Social & Quick Links */
 const socialLinks = [
-    { name: "Facebook", url: "https://www.facebook.com/BloodTestNearme/", icon: "bi bi-facebook" },
+    { name: "Facebook", url: " https://www.facebook.com/trigunahealthcares", icon: "bi bi-facebook" },
     { name: "Twitter", url: "https://x.com/BloodTestNearMe/", icon: "bi bi-twitter" },
-    { name: "Instagram", url: "https://www.instagram.com/bloodtestnearme/", icon: "bi bi-instagram" },
-    { name: "LinkedIn", url: "https://www.linkedin.com/company/blood-test-near-me/", icon: "bi bi-linkedin" },
-    { name: "YouTube", url: "https://www.youtube.com/@bloodtestnearme", icon: "bi bi-youtube" },
-    { name: "Medium", url: "https://medium.com", icon: "bi bi-medium" },
+    { name: "Instagram", url: "https://www.instagram.com/trigunahealthcare/", icon: "bi bi-instagram" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/company/triguna-healthcare/", icon: "bi bi-linkedin" },
+    { name: "YouTube", url: "https://www.youtube.com/@trigunahealthcares", icon: "bi bi-youtube" },
+    { name: "Medium", url: " https://medium.com/@trigunahealthcare", icon: "bi bi-medium" },
 ];
 
 const quickLinks = [
