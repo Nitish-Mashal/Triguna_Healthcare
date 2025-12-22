@@ -376,14 +376,6 @@ const updatePageSEO = (data) => {
     updateMeta("description", data.meta_description || data.short_description);
     updateMeta("keywords", data.meta_keyword);
     updateMeta("header_tag", data.header_tag);
-
-    updateMeta("og:title", title, "property");
-    updateMeta("og:description", data.meta_description, "property");
-    updateMeta("og:type", "website", "property");
-
-    updateMeta("twitter:card", "summary_large_image");
-    updateMeta("twitter:title", title);
-    updateMeta("twitter:description", data.meta_description);
 };
 
 const updateMeta = (key, content, attr = "name") => {

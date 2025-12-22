@@ -431,11 +431,6 @@ const updatePageSEO = (data) => {
         data.short_description ||
         `Book ${data.package_name || "this health checkup"} at home easily with Blood Test Near Me.`
     );
-
-    // (Optional) You can also handle Open Graph (for sharing)
-    setOrUpdateMeta("og:title", data.meta_title || data.package_name);
-    setOrUpdateMeta("og:description", data.meta_description);
-    setOrUpdateMeta("og:type", "website");
 };
 
 /**

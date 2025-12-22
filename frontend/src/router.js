@@ -200,30 +200,28 @@ const router = createRouter({
 });
 
 // ✅ Global hook to set title and meta description
-router.beforeEach((to, from, next) => {
-  // Set document title
-  document.title = to.meta.title || "Blood Test Near Me";
+router.afterEach((to) => {
+  const isHome = to.path === "/";
 
-  // Update or create <meta name="description">
-  const metaDescription = document.querySelector("meta[name='description']");
-  if (metaDescription) {
-    metaDescription.setAttribute(
-      "content",
-      to.meta.description ||
-      "Book affordable blood tests and health checkups at home."
-    );
-  } else {
-    const meta = document.createElement("meta");
-    meta.setAttribute("name", "description");
-    meta.setAttribute(
-      "content",
-      to.meta.description ||
-      "Book affordable blood tests and health checkups at home."
-    );
-    document.head.appendChild(meta);
+  const ogSelectors = [
+    'meta[property="og:title"]',
+    'meta[property="og:description"]',
+    'meta[property="og:type"]',
+    'meta[property="og:url"]',
+    'meta[property="og:image"]',
+    'meta[name="twitter:card"]',
+    'meta[name="twitter:title"]',
+    'meta[name="twitter:description"]',
+    'meta[name="twitter:image"]',
+  ];
+
+  if (!isHome) {
+    ogSelectors.forEach((selector) => {
+      const el = document.querySelector(selector);
+      if (el) el.remove(); // 🔥 hard remove
+    });
   }
-
-  next();
 });
+
 
 export default router;
