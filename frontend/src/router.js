@@ -65,9 +65,9 @@ const routes = [
     name: "JobListing",
     component: () => import("@/Careers/JobListing.vue"),
     meta: {
-      title: "Join Blood Test Near Me | Careers & Job Opportunities in Healthcare",
+      title: "Join Triguna Healthcare | Careers & Job Opportunities in Healthcare",
       description:
-        "Explore exciting career opportunities at Blood Test Near Me. Join our team of healthcare and technology professionals dedicated to delivering reliable diagnostic services and exceptional patient care. Apply now to grow your career with us.",
+        "Explore exciting career opportunities at Triguna Healthcare. Join our team of healthcare and technology professionals dedicated to delivering reliable diagnostic services and exceptional patient care. Apply now to grow your career with us.",
     },
   },
   {
@@ -75,9 +75,9 @@ const routes = [
     name: "JobApply",
     component: () => import("@/Careers/JobApply.vue"),
     meta: {
-      title: "Join Blood Test Near Me | Careers & Job Opportunities in Healthcare",
+      title: "Join Triguna Healthcare | Careers & Job Opportunities in Healthcare",
       description:
-        "Explore exciting career opportunities at Blood Test Near Me. Join our team of healthcare and technology professionals dedicated to delivering reliable diagnostic services and exceptional patient care. Apply now to grow your career with us.",
+        "Explore exciting career opportunities at Triguna Healthcare. Join our team of healthcare and technology professionals dedicated to delivering reliable diagnostic services and exceptional patient care. Apply now to grow your career with us.",
     },
   },
   {
@@ -91,9 +91,9 @@ const routes = [
     name: 'BlogsPreview',
     component: () => import('@/Blogs/BlogsPreview.vue'),
     meta: {
-      title: "Blood Test Near Me - Health Blog",
+      title: "Triguna Healthcare - Health Blog",
       description:
-        "Explore informative health articles on Blood Test Near Me blog. Stay updated on lab tests, wellness, and healthcare insights.",
+        "Explore informative health articles on Triguna Healthcare blog. Stay updated on lab tests, wellness, and healthcare insights.",
     },
   },
   {
@@ -101,9 +101,9 @@ const routes = [
     name: 'BlogDetails',
     component: () => import('@/Blogs/BlogDetails.vue'),
     meta: {
-      title: "Blood Test Near Me - Health Blog",
+      title: "Triguna Healthcare - Health Blog",
       description:
-        "Explore informative health articles on Blood Test Near Me blog. Stay updated on lab tests, wellness, and healthcare insights.",
+        "Explore informative health articles on Triguna Healthcare blog. Stay updated on lab tests, wellness, and healthcare insights.",
     },
   },
   {
@@ -161,7 +161,7 @@ const routes = [
     name: 'AboutUs',
     component: () => import('@/Pages/AboutUs.vue'),
     meta: {
-      title: "About Blood Test Near Me - Thyrocare Bangalore",
+      title: "About Triguna Healthcare - Thyrocare Bangalore",
       description:
         "Explore lab tests in Bangalore. Home sample collection, health packages, and online booking. Your health journey starts here",
     },
@@ -200,27 +200,30 @@ const router = createRouter({
 });
 
 // ✅ Global hook to set title and meta description
-router.afterEach((to) => {
-  const isHome = to.path === "/";
+router.beforeEach((to, from, next) => {
+  // Set document title
+  document.title = to.meta.title || "Blood Test Near Me";
 
-  const ogSelectors = [
-    'meta[property="og:title"]',
-    'meta[property="og:description"]',
-    'meta[property="og:type"]',
-    'meta[property="og:url"]',
-    'meta[property="og:image"]',
-    'meta[name="twitter:card"]',
-    'meta[name="twitter:title"]',
-    'meta[name="twitter:description"]',
-    'meta[name="twitter:image"]',
-  ];
-
-  if (!isHome) {
-    ogSelectors.forEach((selector) => {
-      const el = document.querySelector(selector);
-      if (el) el.remove(); // 🔥 hard remove
-    });
+  // Update or create <meta name="description">
+  const metaDescription = document.querySelector("meta[name='description']");
+  if (metaDescription) {
+    metaDescription.setAttribute(
+      "content",
+      to.meta.description ||
+      "Book affordable blood tests and health checkups at home."
+    );
+  } else {
+    const meta = document.createElement("meta");
+    meta.setAttribute("name", "description");
+    meta.setAttribute(
+      "content",
+      to.meta.description ||
+      "Book affordable blood tests and health checkups at home."
+    );
+    document.head.appendChild(meta);
   }
+
+  next();
 });
 
 

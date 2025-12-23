@@ -1,7 +1,7 @@
 app_name = "triguna_healthcare"
 app_title = "Bloodtestnearme Frontend"
 app_publisher = "Nitish"
-app_description = "Frontend application of blood test near me "
+app_description = "Frontend application of Triguna Healthcare "
 app_email = "nitishmashal0@gmail.com"
 app_license = "mit"
 

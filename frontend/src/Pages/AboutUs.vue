@@ -15,7 +15,7 @@
     <!-- About Section -->
     <section class="py-8 px-2 md:px-16 bg-white">
       <h2 class="text-center text-4xl md:text-4xl font-bold bold-test-color mb-4">
-        About Blood Test Near Me
+        About Triguna Healthcare
       </h2>
 
       <div class="flex flex-col md:flex-row items-start gap-10">
@@ -230,7 +230,7 @@
 
     <!-- Content -->
     <div class="relative max-w-3xl mx-auto text-center">
-      <h3 class="text-lg font-medium mb-3">Blood Test Near Me</h3>
+      <h3 class="text-lg font-medium mb-3">Triguna Healthcare</h3>
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">
         Keeping you Confident and Healthy until the Big Day
       </h2>

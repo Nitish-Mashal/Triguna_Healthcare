@@ -415,7 +415,7 @@ const updatePageSEO = (data) => {
         data.title ||
         data.package_name ||
         data.name1 ||
-        "Blood Test Near Me - Health Packages";
+        "Triguna Healthcare - Health Packages";
 
     // 🔹 Update or create <meta name="description">
     let metaDesc = document.querySelector("meta[name='description']");
@@ -429,7 +429,7 @@ const updatePageSEO = (data) => {
         "content",
         data.meta_description ||
         data.short_description ||
-        `Book ${data.package_name || "this health checkup"} at home easily with Blood Test Near Me.`
+        `Book ${data.package_name || "this health checkup"} at home easily with Triguna Healthcare.`
     );
 };
 

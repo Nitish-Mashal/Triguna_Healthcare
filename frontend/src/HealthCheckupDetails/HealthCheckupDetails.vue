@@ -369,7 +369,7 @@ const updatePageSEO = (data) => {
     const title =
         data.meta_title ||
         data.title ||
-        `${data.package_name || "Health Checkup"} | Blood Test Near Me`;
+        `${data.package_name || "Health Checkup"} | Triguna Healthcare`;
 
     document.title = title;
 

@@ -1,6 +1,6 @@
 ### Bloodtestnearme Frontend
 
-Frontend application of blood test near me 
+Frontend application of Triguna Healthcare 
 
 ### Installation
 
