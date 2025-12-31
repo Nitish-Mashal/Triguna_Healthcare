@@ -30,7 +30,7 @@
             </div>
 
             <!-- Know More Button -->
-            <router-link to="/faq-details" class="no-underline">
+            <router-link to="/FAQs" class="no-underline">
                 <div class="mt-3">
                     <button
                         class="border-1 border-[#001D55] font-semibold text-sm text-[#001D55] px-4 py-2 rounded-full transition-all duration-200 flex items-center gap-1">
@@ -56,24 +56,24 @@ export default {
             faqs: [
                 {
                     question:
-                        "What is Triguna Healthcare?",
+                        "What services does Triguna Healthcare provide? ",
                     answer:
-                        "Triguna Healthcare is an authorised partner of Thyrocare, offering accurate blood tests, preventive health packages, and reliable home sample collection services across India.",
+                        "We offer a comprehensive range of Blood Tests & Full Body Health Checkups processed through our official Thyrocare partnership. All services include professional home sample collection.",
                 },
                 {
-                    question: "Do you provide home sample collection?",
+                    question: "How do I book a lab test online? ",
                     answer:
-                        "Yes. We offer nationwide home blood sample collection through our collaboration with Thyrocare's pan-India network.",
+                        "Select your required package on our website and schedule a collection time. Our system is designed to provide a seamless booking experience from the comfort of your home.",
                 },
                 {
-                    question: "In how many cities do you provide diagnostic services?",
+                    question: "Can I book tests for my family members? ",
                     answer:
-                        "We serve all major cities and towns across India, including Bangalore, Mumbai, Delhi, Gurugram, Noida, Hyderabad, Chennai, Pune, and more",
+                        "Yes. Our home service is ideal for senior citizens, children, and those with limited mobility. You can manage multiple bookings under one account.",
                 },
                 {
-                    question: "What are the service hours for home sample collection?",
+                    question: "Is the home collection process safe?",
                     answer:
-                        "Home collection is available from 05:30 AM to 07:00 PM, depending on your location.",
+                        " Yes. Our certified phlebotomists use single-use sterile kits and follow strict clinical hygiene protocols to ensure a safe and professional experience at your doorstep.",
                 },
             ],
         };

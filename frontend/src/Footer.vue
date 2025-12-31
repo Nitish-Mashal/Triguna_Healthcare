@@ -33,7 +33,7 @@
                     isSmallScreen ? 'mb-2' : ''
                 ]">
                     <h2 class="font-bold text-lg sm:text-xl mb-3 sm:mb-3 ml-8">
-                        Most Popular Packages
+                        Other Health Checkups
                     </h2>
                     <ul class="space-y-2 text-sm">
                         <li v-for="(pkg, index) in popularPackages" :key="'p' + index">
@@ -48,7 +48,7 @@
                 <!-- Other Packages -->
                 <div v-if="otherPackages.length > 0">
                     <h2 class="font-bold text-lg sm:text-xl mb-3 sm:mb-3 ml-8">
-                        Other Packages
+                        Other Lab Tests
                     </h2>
                     <ul class="space-y-2 text-sm">
                         <li v-for="(pkg, index) in otherPackages" :key="'o' + index">
@@ -102,9 +102,9 @@ const socialLinks = [
 const quickLinks = [
     { name: "About Us", path: "/about-us" },
     { name: "Contact Us", path: "/contact-us" },
-    { name: "Blogs", path: "/blogspreview" },
+    { name: "Blogs", path: "/blog" },
     { name: "Privacy Policy", path: "/privacy-policy" },
-    { name: "Terms & Conditions", path: "/terms-Conditions" },
+    { name: "Terms & Conditions", path: "/terms-and-conditions" },
     { name: "Careers", path: "/Careers" },
     { name: "Upcoming Services", path: "#" },
     { name: "Add Diagnostic Center", path: "/add-diagnostic-center" },

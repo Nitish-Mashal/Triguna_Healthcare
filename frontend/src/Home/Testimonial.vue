@@ -100,9 +100,9 @@
                             4.9
                             <span class="text-yellow-400 text-2xl align-middle ml-1">★★★★★</span>
                         </div>
-                        <p class="text-blue-900 font-semibold">
+                        <h2 class="text-blue-900 font-semibold text-[16px]">
                             Top-Rated Online Pathology Service
-                        </p>
+                        </h2>
                     </div>
                 </div>
             </div>

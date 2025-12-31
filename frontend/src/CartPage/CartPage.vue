@@ -17,7 +17,7 @@
                 <div class="col-12 col-md-6 mb-2">
                     <div class="flex justify-between items-center mb-4">
                         <h5 class="text-[#001D55] font-semibold">Cart Items</h5>
-                        <router-link to="/blood-test-online"
+                        <router-link to="/book-blood-tests"
                             class="flex items-center text-red-700 font-medium no-underline hover:underline-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4 h-4 mr-1">

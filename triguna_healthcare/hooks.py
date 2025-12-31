@@ -43,18 +43,19 @@ website_route_rules = [
 
     # ✅ Vue SPA base and static routes
     {"from_route": "/", "to_route": "/"},
-    {"from_route": "/health-checkup-packages", "to_route": "/"},
-    {"from_route": "/blood-test-online", "to_route": "/"},
+    {"from_route": "/full-body-health-checkups", "to_route": "/"},
+    {"from_route": "/book-blood-tests", "to_route": "/"},
     {"from_route": "/CartPage", "to_route": "/"},
     {"from_route": "/qrcodedata", "to_route": "/"},
-    {"from_route": "/blogspreview", "to_route": "/"},
+    {"from_route": "/blog", "to_route": "/"},
     {"from_route": "/blogdetails", "to_route": "/"},
     {"from_route": "/add-diagnostic-center", "to_route": "/"},
     {"from_route": "/labs-near-me", "to_route": "/"},
-    {"from_route": "/terms-Conditions", "to_route": "/"},
+    {"from_route": "/terms-and-conditions", "to_route": "/"},
     {"from_route": "/contact-us", "to_route": "/"},
     {"from_route": "/about-us", "to_route": "/"},
     {"from_route": "/privacy-policy", "to_route": "/"},
+    {"from_route": "/FAQs", "to_route": "/"},
 
     # ✅ Dynamic Vue routes (use wildcard to catch nested paths)
     {"from_route": "/book/<path:path>", "to_route": "/"},      # e.g. /book/some-package

@@ -6,11 +6,13 @@
 
         <div
             class="flex flex-wrap justify-center gap-x-2 max-w-5xl mx-auto text-[#001D55] text-sm sm:text-base font-semibold leading-relaxed text-center">
+
             <span v-for="(city, index) in cities" :key="index"
-                class="hover:text-[#2077BF] transition-colors duration-200">
+                class="cursor-pointer hover:text-[#2077BF] transition-colors duration-200" @click="goToCity(city)">
                 {{ city }}
-                <span v-if="index !== cities.length - 1">|</span>
+                <span v-if="index !== cities.length - 1"> | </span>
             </span>
+
         </div>
     </section>
 </template>
@@ -34,6 +36,12 @@ export default {
                 "West Delhi",
             ],
         };
+    },
+    methods: {
+        goToCity(city) {
+            const slug = city.replace(/\s+/g, "-");
+            this.$router.push(`/${slug}`);
+        },
     },
 };
 </script>

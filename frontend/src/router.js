@@ -6,30 +6,41 @@ const routes = [
     name: "Home",
     component: () => import("@/Home/HeroSection.vue"),
     meta: {
-      title: "Blood Tests | Full Body Health Checkups | Thyrocare",
+      title: "Blood Tests & Full Body Health Checkups | Triguna Healthcare",
       description:
-        "Book blood tests and full body health checkup packages online at Thyrocare Bangalore. Get accurate lab tests at home with free sample collection.",
+        "Triguna Healthcare, official Thyrocare partner, offers blood tests, full body health checkups & home sample collection. Book your Lab Tests online today.",
     },
   },
   {
-    path: "/health-checkup-packages/:category?",
+    path: "/:city",
+    name: "HomeByCity",
+    component: () => import("@/Home/HeroSection.vue"),
+    props: true,
+    meta: {
+      title: "Blood Tests Near You | Triguna Healthcare",
+      description:
+        "Book blood tests and health checkups with free home sample collection.",
+    },
+  },
+  {
+    path: "/full-body-health-checkups/:category?",
     name: "HealthCheckupList",
     component: () => import("@/HealthCheckupDetails/HealthCheckupList.vue"),
     props: true,
     meta: {
-      title: "Thyrocare Full Body Health Checkup Packages in Bangalore",
+      title: "Book Full Body Health Checkups at Home | Triguna Healthcare",
       description:
-        "Explore the best full body health checkup packages offered by Thyrocare in Bangalore. Affordable and reliable tests at home.",
+        "Book full body health checkups at home with Triguna Healthcare, an official Thyrocare partner offering lab tests and professional home sample collection.",
     },
   },
   {
-    path: "/blood-test-online",
+    path: "/book-blood-tests",
     name: "BloodTestList",
     component: () => import("@/BloodTest/BloodTestList.vue"),
     meta: {
-      title: "Book Blood Tests in Bangalore | Thyrocare Lab",
+      title: "Book Blood Tests at Home | Triguna Healthcare",
       description:
-        "Book blood tests online in Bangalore with Thyrocare. Get free home sample collection and quick digital reports.",
+        "Book blood tests online at home with Triguna Healthcare, an official Thyrocare partner offering professional lab tests and home sample collection.",
     },
   },
   {
@@ -85,19 +96,18 @@ const routes = [
     name: 'QRcodeData',
     component: () => import('@/QRscan/QRcodeData.vue'),
   },
-
   {
-    path: '/blogspreview',
+    path: '/blog',
     name: 'BlogsPreview',
     component: () => import('@/Blogs/BlogsPreview.vue'),
     meta: {
-      title: "Triguna Healthcare - Health Blog",
+      title: "Health & Wellness Blog | Triguna Healthcare",
       description:
-        "Explore informative health articles on Triguna Healthcare blog. Stay updated on lab tests, wellness, and healthcare insights.",
+        "Stay updated with the latest health tips, diagnostic guides, and wellness advice from Triguna Healthcare. Your trusted source for blood test and health checkup information.",
     },
   },
   {
-    path: '/blogdetails',
+    path: '/blogdetails/:slug',
     name: 'BlogDetails',
     component: () => import('@/Blogs/BlogDetails.vue'),
     meta: {
@@ -127,13 +137,13 @@ const routes = [
     },
   },
   {
-    path: '/terms-Conditions',
+    path: '/terms-and-conditions',
     name: 'TermsAndCondition',
     component: () => import('@/Pages/TermsAndCondition.vue'),
     meta: {
-      title: "Book Blood Tests in Bangalore | Terms and Conditions",
+      title: "Terms & Conditions | Triguna Healthcare",
       description:
-        "Book blood tests online in Bangalore with Thyrocare. Get free home sample collection and quick digital reports.",
+        "Read the Terms & Conditions of Triguna Healthcare to know the rules, responsibilities, and policies while using our website and services.",
     },
   },
   {
@@ -147,7 +157,7 @@ const routes = [
     },
   },
   {
-    path: '/AddressDetails',
+    path: '/address/:slug',
     name: 'AddressDetails',
     component: () => import('@/Pages/AddressDetails.vue'),
     meta: {
@@ -161,9 +171,9 @@ const routes = [
     name: 'AboutUs',
     component: () => import('@/Pages/AboutUs.vue'),
     meta: {
-      title: "About Triguna Healthcare - Thyrocare Bangalore",
+      title: "About Us | Triguna Healthcare",
       description:
-        "Explore lab tests in Bangalore. Home sample collection, health packages, and online booking. Your health journey starts here",
+        "Learn about Triguna Healthcare, an official Thyrocare partner offering blood tests, full body health checkups & professional home sample collection. Book online today.",
     },
   },
   {
@@ -171,16 +181,21 @@ const routes = [
     name: 'PrivavyAndPolicy',
     component: () => import('@/Pages/PrivavyAndPolicy.vue'),
     meta: {
-      title: "Book Blood Tests in Bangalore | Privacy and policy",
+      title: "Privacy Policy | Triguna Healthcare",
       description:
-        "Book blood tests online in Bangalore with Thyrocare. Get free home sample collection and quick digital reports.",
+        "Read the Privacy Policy of Triguna Healthcare to understand how we collect, use, and protect your personal information on our website and services.",
     },
   },
 
   {
-    path: '/faq-details',
+    path: '/FAQs',
     name: 'FAQDetails',
     component: () => import('@/Home/FAQDetails.vue'),
+    meta: {
+      title: "Frequently Asked Questions | Triguna Healthcare",
+      description:
+        "Find answers to common questions about blood tests, full body health checkups, and home sample collection with Triguna Healthcare. Official Thyrocare partner.",
+    },
   },
 
   // Catch All 404 | This should be the last route always

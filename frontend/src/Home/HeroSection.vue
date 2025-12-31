@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- ⭐ Promotions for MOBILE ONLY (show only if data exists) -->
+    <!-- ⭐ Promotions for MOBILE ONLY -->
     <div v-if="hasPromotions" class="block sm:hidden">
       <Suspense>
         <PromoMobile />
@@ -8,17 +8,21 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="relative bg-cover bg-center bg-no-repeat flex flex-col sm:flex-row items-center justify-center sm:justify-end py-10 sm:py-22 md:py-[100px] px-4 m:px-6 md:pr-20
+    <section class="relative bg-cover bg-center bg-no-repeat flex flex-col sm:flex-row items-center justify-center sm:justify-end
+  py-6 sm:py-12 md:py-[60px] px-4 m:px-6 md:pr-20
   bg-[url('/files/StickyimageMobile.jpg')] sm:bg-[url('/files/StickyBannerImage.jpg')]">
-
-
       <div class="absolute inset-0 bg-black/10"></div>
 
-      <div class="relative z-10 text-left max-w-3xl sm:mr-[30px]">
+      <div class="relative z-10 text-left max-w-3xl sm:mr-[30px] bold-test-color">
 
-        <h1 class="text-xl sm:text-2xl md:text-[30px] font-medium bold-test-color mb-2 ml-[4px] sm:ml-[2px]">
-          Lab Tests at the Comfort of Your Home
+        <!-- ✅ Dynamic City Heading -->
+        <h1 class="text-xl sm:text-2xl md:text-[30px] font-medium mb-1 ml-[4px] sm:ml-[2px] underline leading-tight">
+          Blood Tests & Full Body Health Checkups
         </h1>
+
+        <p class="text-sm mb-2 ml-[4px] sm:ml-[2px]">
+          Trusted Lab Tests with Professional Home Sample Collection
+        </p>
 
         <!-- Loader -->
         <div v-if="isLoading" class="flex justify-center items-center my-4">
@@ -29,7 +33,8 @@
           </svg>
         </div>
 
-        <div v-else class="flex flex-wrap gap-3 mb-4">
+        <!-- Packages -->
+        <div v-else class="flex flex-wrap gap-3 mb-3">
           <router-link v-for="pkg in packages" :key="pkg.id" :to="pkg.url ? `/${pkg.url}` : '#'">
             <button
               class="global-bg-color text-white font-medium px-4 py-2 rounded-full transition text-xs sm:text-sm whitespace-normal break-words text-center"
@@ -39,24 +44,20 @@
           </router-link>
         </div>
 
-        <p class="bold-test-color text-sm sm:text-base md:text-lg mb-2 ml-[4px] sm:ml-[2px] font-bold">
-          We Bring Healthcare to Your Doorstep
-        </p>
-
         <router-link to="/contact-us">
-          <button
-            class="border-1 border-[#001D55] bold-test-color bg-white text-sm font-medium px-6 sm:px-8 py-2 rounded-full transition ml-[4px] sm:ml-[2px]">
+          <button class="border-1 border-[#001D55] bold-test-color bg-white text-sm font-medium
+  px-6 sm:px-8 py-2 rounded-full transition
+  ml-[4px] sm:ml-[2px] mt-1">
             Request Callback
           </button>
         </router-link>
       </div>
     </section>
 
-    <!-- Lazy Load Remaining Sections -->
+    <!-- Lazy Sections -->
     <Suspense>
       <LazySections />
     </Suspense>
-
   </div>
 </template>
 
@@ -66,6 +67,8 @@ import { defineAsyncComponent } from "vue";
 import axios from "axios";
 
 export default {
+  name: "HeroSection",
+
   components: {
     LazySections,
     PromoMobile: defineAsyncComponent(() => import("./Promotions.vue")),
@@ -75,13 +78,26 @@ export default {
     return {
       packages: [],
       isLoading: true,
-      hasPromotions: false, // ⭐ new
+      hasPromotions: false,
     };
+  },
+
+  computed: {
+    selectedCity() {
+      const city = this.$route.params.city;
+      return city ? city.replace(/-/g, " ") : "Bangalore";
+    },
   },
 
   mounted() {
     this.fetchHeroPackages();
-    this.checkPromotions(); // ⭐ added
+    this.checkPromotions();
+  },
+
+  watch: {
+    "$route.params.city"() {
+      // reactively update if city changes
+    },
   },
 
   methods: {
@@ -101,7 +117,6 @@ export default {
           name: pkg.name,
           url: pkg.url,
         }));
-
       } catch (err) {
         console.error("Error fetching hero section packages:", err);
       } finally {
@@ -109,7 +124,6 @@ export default {
       }
     },
 
-    // ⭐ NEW METHOD — checks if promotions exist
     async checkPromotions() {
       try {
         const res = await axios.get(
@@ -117,9 +131,7 @@ export default {
         );
 
         const list = res.data?.message || [];
-
         this.hasPromotions = Array.isArray(list) && list.length > 0;
-
       } catch (err) {
         console.error("Error checking promotions:", err);
         this.hasPromotions = false;

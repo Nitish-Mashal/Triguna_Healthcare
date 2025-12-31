@@ -13,9 +13,9 @@
                 class="flex flex-col items-center text-center w-[120px] sm:w-[150px] hover:scale-105 transition-transform duration-200">
                 <img :src="cert.image" :alt="cert.title" loading="lazy"
                     class="w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] object-cover rounded-full shadow-md" />
-                <p class="mt-3 font-semibold bold-test-color text-sm sm:text-base">
+                <h3 class="mt-3 font-semibold bold-test-color text-sm sm:text-base">
                     {{ cert.title }}
-                </p>
+                </h3>
             </div>
         </div>
 

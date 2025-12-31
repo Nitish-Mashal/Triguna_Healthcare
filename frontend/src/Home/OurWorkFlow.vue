@@ -12,9 +12,7 @@
                     class="flex flex-col items-center w-28 sm:w-36 transition-transform duration-300 hover:scale-105">
                     <img :src="step.image" :alt="step.alt" loading="lazy"
                         class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-md" />
-                    <p class="mt-3 font-semibold bold-test-color text-sm sm:text-base">
-                        <span v-html="step.text"></span>
-                    </p>
+                    <h3 class="mt-3 font-semibold bold-test-color text-sm sm:text-base" v-html="step.text"></h3>
                 </div>
             </div>
         </div>

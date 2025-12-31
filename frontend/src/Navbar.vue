@@ -118,12 +118,12 @@
         <div v-show="isMenuOpen" ref="menuRef" class="md:hidden w-full overflow-hidden">
           <ul class="flex flex-col py-2 transition-all duration-300 ease-in-out">
             <li>
-              <router-link @click="onMobileLinkClick" to="/blood-test-online" class="block py-2 text-white">
+              <router-link @click="onMobileLinkClick" to="/book-blood-tests" class="block py-2 text-white">
                 Book a Test
               </router-link>
             </li>
             <li>
-              <router-link @click="onMobileLinkClick" to="/health-checkup-packages" class="block py-2 text-white">
+              <router-link @click="onMobileLinkClick" to="/full-body-health-checkups" class="block py-2 text-white">
                 Health Checkups
               </router-link>
             </li>
@@ -161,13 +161,13 @@
 
       <!-- Desktop Links -->
       <div class="hidden md:flex items-center space-x-8 font-normal">
-        <router-link to="/blood-test-online" class="nav-link"
-          :class="{ 'active-link': route.path === '/blood-test-online' }">
+        <router-link to="/book-blood-tests" class="nav-link"
+          :class="{ 'active-link': route.path === '/book-blood-tests' }">
           Book a Test
         </router-link>
 
-        <router-link to="/health-checkup-packages" class="nav-link"
-          :class="{ 'active-link': route.path === '/health-checkup-packages' }">
+        <router-link to="/full-body-health-checkups" class="nav-link"
+          :class="{ 'active-link': route.path === '/full-body-health-checkups' }">
           Health Checkups
         </router-link>
 

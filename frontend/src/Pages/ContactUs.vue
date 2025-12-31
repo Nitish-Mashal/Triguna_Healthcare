@@ -91,7 +91,7 @@
         <div v-for="(loc, i) in locations" :key="i">
           <div
             class="cursor-pointer bg-white rounded-2xl shadow-md border border-gray-200 p-4 hover:shadow-lg transition-all">
-            <router-link :to="{ name: 'AddressDetails', query: { id: loc.name } }" class="no-underline">
+            <router-link :to="{ name: 'AddressDetails', params: { slug: loc.url } }" class="no-underline">
               <!-- Location Name -->
               <div class="bold-test-color text-lg font-semibold leading-relaxed mb-2">
                 {{ loc.name }}
@@ -156,7 +156,6 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
@@ -215,25 +214,23 @@ const locations = ref([]);
 const fetchLocations = async () => {
   try {
     const res = await axios.get(
-      "/api/method/bloodtestnearme.api.testcenter_address.get_test_centers"
+      "/api/method/bloodtestnearme.api.testcenter_address.get_test_center"
     );
 
     console.log("API Response:", res.data);
 
-    const centers = res.data.message || [];
+    // ✅ FIX HERE
+    const centers = res.data.message?.data || [];
 
     locations.value = centers.map(center => ({
       name: center.test_center_name || center.branch_name || "Unnamed Center",
-
       address: `${center.address_line?.trim() || ""}, ${center.city || ""} - ${center.pincode || ""}`,
-
-      contact_number: center.contact_number || "",   //  ✅ used for phone button
-      email: center.email_id || "",                 //  used if needed
-      map_embed_link: center.map_embed_link || "#", //  ✅ used for Google Map button
-
-      // optional fields if you want later
+      contact_number: center.contact_number || "",
+      email: center.email_id || "",
+      map_embed_link: center.map_embed_link || "#",
       description: center.description || "",
       image: center.image || null,
+      url: center.url, // used for router-link
     }));
 
   } catch (error) {

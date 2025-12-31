@@ -1,5 +1,5 @@
 <template>
-    <div class=" py-10 px-5">
+    <div class="py-10 px-5">
 
         <!-- Loading State -->
         <div v-if="isLoading" class="text-center py-20 text-gray-500 text-lg">
@@ -57,21 +57,26 @@ export default {
         this.fetchBlogDetails()
     },
     methods: {
+
         async fetchBlogDetails() {
-            const blogName = this.route.query.name
-            if (!blogName) {
+            const blogSlug = this.route.params.slug
+            if (!blogSlug) {
                 this.isLoading = false
                 return
             }
 
             try {
-                const res = await axios.get('/api/method/bloodtestnearme.api.blogs.get_blog', {
-                    params: { blog_name: blogName }
-                })
-                this.blog = res.data.message || null
+                const res = await axios.get('/api/method/bloodtestnearme.api.blogs.get_blogs')
+                const allBlogs = res.data.message || []
+
+                // Find blog by slug/url
+                this.blog = allBlogs.find(b => b.url === blogSlug) || null
 
                 if (this.blog) {
-                    // dynamically collect headings and descriptions
+                    // Update SEO meta
+                    this.updatePageSEO(this.blog)
+
+                    // Prepare description headings & contents
                     this.descriptionHeadings = []
                     this.descriptions = []
 
@@ -90,6 +95,31 @@ export default {
             } finally {
                 this.isLoading = false
             }
+        },
+
+        // ---------------- SEO FUNCTIONS ----------------
+        updatePageSEO(data) {
+            const title =
+                data.meta_title ||
+                data.title ||
+                `${data.package_name || "Health Checkup"} | Triguna Healthcare`;
+
+            document.title = title;
+
+            this.updateMeta("description", data.meta_description || data.short_description);
+            this.updateMeta("keywords", data.meta_keyword);
+            this.updateMeta("header_tag", data.header_tag);
+        },
+
+        updateMeta(key, content, attr = "name") {
+            if (!content) return;
+            let meta = document.querySelector(`meta[${attr}='${key}']`);
+            if (!meta) {
+                meta = document.createElement("meta");
+                meta.setAttribute(attr, key);
+                document.head.appendChild(meta);
+            }
+            meta.setAttribute("content", content);
         }
     }
 }

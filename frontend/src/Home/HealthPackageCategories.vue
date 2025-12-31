@@ -10,7 +10,7 @@
                 </h2>
 
                 <div class="text-sm font-medium sm:mt-0 whitespace-nowrap">
-                    <router-link to="/health-checkup-packages"
+                    <router-link to="/full-body-health-checkups"
                         class="flex items-center gap-1 no-underline bold-test-color hover:underline">
                         <span>View All</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -142,7 +142,7 @@ const generateCategorySlug = (category) => {
 // ⭐ THIS IS THE IMPORTANT PART — USE QUERY PARAM
 const goToCategory = (category) => {
     const slug = generateCategorySlug(category);
-    router.push(`/health-checkup-packages/${slug}`);
+    router.push(`/full-body-health-checkups/${slug}`);
 };
 
 onMounted(fetchCategories);

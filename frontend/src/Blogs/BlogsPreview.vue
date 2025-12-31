@@ -1,9 +1,11 @@
 <template>
   <div class="container p-10 min-h-screen">
+
     <!-- Grid layout: 3 cards per row -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <div v-for="(card, index) in cards" :key="index"
         class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-transform hover:scale-105 flex flex-col">
+
         <!-- 🔸 Top Orange Section -->
         <div class="global-bg-color p-3 flex justify-between items-center h-48">
           <!-- Left: Logo + Text -->
@@ -31,7 +33,9 @@
           <p class="text-gray-600 text-sm mb-2 line-clamp-3">
             {{ stripHtml(card.description_1) }}
           </p>
-          <router-link :to="{ name: 'BlogDetails', query: { name: card.name } }"
+
+          <!-- Only render router-link if URL exists -->
+          <router-link v-if="card.url" :to="{ name: 'BlogDetails', params: { slug: card.url } }"
             class="bold-test-color font-semibold text-sm hover:underline">
             Read More >>
           </router-link>
@@ -48,19 +52,19 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted } from "vue";
 
 const cards = ref([]);
 
-// ✅ Utility to remove all HTML tags from the text editor output
+// ✅ Utility to remove all HTML tags from text
 const stripHtml = (html) => {
   if (!html) return "";
   const temp = document.createElement("div");
   temp.innerHTML = html;
   return temp.textContent || temp.innerText || "";
 };
+
 // ✅ Format date
 const formatDate = (dateStr) => {
   if (!dateStr) return "";
@@ -72,14 +76,23 @@ const formatDate = (dateStr) => {
   });
 };
 
+// ✅ Generate slug from name (fallback if URL is missing)
+const generateSlug = (text) =>
+  text?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+
 // ✅ Fetch blogs using fetch()
 onMounted(async () => {
   try {
-    const res = await fetch(
-      "/api/method/bloodtestnearme.api.blogs.get_blogs"
-    );
+    const res = await fetch("/api/method/bloodtestnearme.api.blogs.get_blogs");
     const data = await res.json();
-    cards.value = data.message || [];
+
+    // Add fallback slug if url is missing
+    cards.value = (data.message || []).map(card => ({
+      ...card,
+      url: card.url || generateSlug(card.name)
+    }));
+
+    console.log("Cards fetched:", cards.value);
   } catch (error) {
     console.error("❌ Error fetching blogs:", error);
   }

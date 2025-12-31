@@ -27,44 +27,34 @@ import { ref } from "vue";
 
 const faqs = ref([
     {
-        question: "What is Triguna Healthcare?",
+        question: "What services does Triguna Healthcare provide? ",
         answer:
-            "Triguna Healthcare is an authorised partner of Thyrocare, offering accurate blood tests, preventive health packages, and reliable home sample collection services across India.",
+            "We offer a comprehensive range of Blood Tests & Full Body Health Checkups processed through our official Thyrocare partnership. All services include professional home sample collection.",
     },
     {
-        question: "Do you provide home sample collection?",
+        question: "How do I book a lab test online? ",
         answer:
-            "Yes. We offer nationwide home blood sample collection through our collaboration with Thyrocare's pan-India network.",
+            "Select your required package on our website and schedule a collection time. Our system is designed to provide a seamless booking experience from the comfort of your home.",
     },
     {
-        question: "In how many cities do you provide diagnostic services?",
+        question: "Can I book tests for my family members? ",
         answer:
-            "We serve all major cities and towns across India, including Bangalore, Mumbai, Delhi, Gurugram, Noida, Hyderabad, Chennai, Pune, and more.",
+            "Yes. Our home service is ideal for senior citizens, children, and those with limited mobility. You can manage multiple bookings under one account..",
     },
     {
-        question: "What are the service hours for home sample collection?",
+        question: "Is the home collection process safe?",
         answer:
-            "Home collection is available from 05:30 AM to 07:00 PM, depending on your location.",
+            " Yes. Our certified phlebotomists use single-use sterile kits and follow strict clinical hygiene protocols to ensure a safe and professional experience at your doorstep.",
     },
     {
-        question: "How quickly will I receive my test reports?",
+        question: "How should I prepare for my blood test? ",
         answer:
-            "Reports are usually delivered within 12-24 hours, depending on the test type.",
+            "Preparation depends on the test. For most Full Body Health Checkups, 8-12 hours of fasting is required. We recommend staying hydrated with water unless otherwise instructed.",
     },
     {
-        question: "Are the test results accurate?",
+        question: "What if I need to reschedule my appointment? ",
         answer:
-            "Yes. All tests are processed in Thyrocare's ISO/NABL/CAP-certified laboratory using advanced automated systems for high accuracy.",
-    },
-    {
-        question: "What types of health checkup packages do you offer?",
-        answer:
-            "We provide full body checkups, thyroid profiles, diabetes screening, vitamin tests, hormone tests, women's wellness profiles, senior citizen packages, and customized wellness plans.",
-    },
-    {
-        question: "Can I cancel or reschedule a booking?",
-        answer:
-            "Yes. You can cancel or reschedule easily by contacting our customer support team via phone or WhatsApp. 📞 96110 11266",
+            "You can easily reschedule or cancel your appointment by contacting our support team via WhatsApp or phone at least 4 hours before the scheduled time.",
     },
 ]);
 </script>

@@ -10,7 +10,7 @@
                         Most Booked Blood Tests
                     </h2>
 
-                    <router-link to="/blood-test-online"
+                    <router-link to="/book-blood-tests"
                         class="text-sm font-medium flex items-center gap-1 no-underline bold-test-color hover:underline whitespace-nowrap">
                         <span>View All</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
