@@ -4,52 +4,28 @@
         <div class="h-[250px] sm:h-[400px] w-full bg-cover bg-center" :style="{
             backgroundImage: testCenter?.image
                 ? `url(${testCenter.image})`
-                : 'url(/files/AddressDetails.jpg)'
+                : 'url(/files/AddressDetail.jpg)'
         }"></div>
 
         <!-- 🔹 Content -->
-        <div class="container mx-auto px-4 py-6">
-            <h1 class="text-3xl font-bold bold-test-color mb-4">
-                {{ testCenter?.name }}
-            </h1>
-
-            <!-- Address + Contact -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg bold-test-color">
-                <div>
-                    <p><strong>Address:</strong> {{ testCenter?.address_line }}</p>
-                    <p><strong>City:</strong> {{ testCenter?.city }} - {{ testCenter?.pincode }}</p>
-                    <p><strong>State:</strong> {{ testCenter?.state }}</p>
-                </div>
-
-                <div>
-                    <p>
-                        <strong>Phone:</strong>
-                        <a :href="`tel:${testCenter?.contact_number}`" class="text-blue-600">
-                            {{ testCenter?.contact_number }}
-                        </a>
-                    </p>
-
-                    <p>
-                        <strong>Email:</strong>
-                        <a :href="`mailto:${testCenter?.email_id}`" class="text-blue-600">
-                            {{ testCenter?.email_id }}
-                        </a>
-                    </p>
-
-                    <p>
-                        <strong>Timings:</strong> {{ testCenter?.timings || "-" }}
-                    </p>
-                </div>
-            </div>
+        <div class="container">
 
             <!-- Description -->
             <div v-if="testCenter?.description" class="mt-6 bold-test-color">
-                <h3 class="text-xl font-semibold mb-2">About This Test Center</h3>
+                <h3 class="text-xl font-semibold">About This Test Center</h3>
                 <p v-html="testCenter.description"></p>
             </div>
 
+            <router-link to="/contact-us">
+                <button class="border-1 border-[#001D55] bold-test-color bg-white text-sm font-medium
+  px-6 sm:px-8 py-2 rounded-full transition
+  ml-[4px] sm:ml-[2px] mt-1">
+                    Request Callback
+                </button>
+            </router-link>
+
             <!-- 🔹 Google Map -->
-            <div v-if="getEmbedMapUrl(testCenter?.map_embed_link)" class="mt-6">
+            <div v-if="getEmbedMapUrl(testCenter?.map_embed_link)" class="mt-3">
                 <h3 class="text-xl font-semibold mb-2 bold-test-color">Location Map</h3>
 
                 <iframe :src="getEmbedMapUrl(testCenter.map_embed_link)" width="100%" height="350" style="border:0;"

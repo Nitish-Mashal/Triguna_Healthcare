@@ -39,8 +39,11 @@ export default {
     },
     methods: {
         goToCity(city) {
-            const slug = city.replace(/\s+/g, "-");
-            this.$router.push(`/${slug}`);
+            const slug = city
+                .toLowerCase()
+                .replace(/\s+/g, "-");
+
+            this.$router.push(`/city/${slug}`);
         },
     },
 };

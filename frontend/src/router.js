@@ -12,7 +12,7 @@ const routes = [
     },
   },
   {
-    path: "/:city",
+    path: "/city/:city",
     name: "HomeByCity",
     component: () => import("@/Home/HeroSection.vue"),
     props: true,
