@@ -240,6 +240,7 @@
 
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useCartStore } from "@/stores/cartStore";
 import { useQRCodeStore } from '@/stores/useQRCodeStore'
@@ -248,6 +249,9 @@ import MostBookedHealthCheckups from "../Home/MostBookedHealthCheckups.vue";
 const cartStore = useCartStore();
 
 // ========================== STATE ==========================
+const route = useRoute();
+const router = useRouter();
+const orderId = route.params.orderId;
 const loading = ref(true);
 const submitting = ref(false);
 const isChecking = ref(false);
@@ -316,8 +320,8 @@ const minDate = ref(new Date().toISOString().split("T")[0]);
 
 const generateTimeSlots = () => {
     const slots = [];
-    const start = new Date(); start.setHours(7, 0, 0, 0);
-    const end = new Date(); end.setHours(18, 0, 0, 0);
+    const start = new Date(); start.setHours(5, 30, 0, 0);
+    const end = new Date(); end.setHours(19, 0, 0, 0);
 
     while (start < end) {
         const endTime = new Date(start.getTime() + 30 * 60000);
@@ -484,7 +488,6 @@ const onMobileInput = (e) => {
 };
 
 
-
 const clearError = field => delete errors.value[field];
 
 const validateBeforeSubmit = () => {
@@ -580,11 +583,11 @@ const singleOrderSubmit = async () => {
     // ✅ Load scanned ID from localStorage using Pinia store
     // -----------------------------------------------------
     const qrCodeStore = useQRCodeStore();
-    qrCodeStore.loadScannedId();  // <-- FIXED
+    qrCodeStore.loadScannedId();
     const scannedId = qrCodeStore.scannedId;
 
     // -----------------------------------------------------
-    // ✅ Prepare pure JS payload (no reactive objects)
+    // ✅ Prepare pure JS payload
     // -----------------------------------------------------
     const payload = {
         customer_name: persons.value[0]?.name || "",
@@ -603,8 +606,8 @@ const singleOrderSubmit = async () => {
         total_price: totalAmount.value,
         total_item_price: totalBasePrice.value,
 
-        ordered_items: JSON.parse(JSON.stringify(cartStore.cartItems)), // remove Vue Proxy
-        customer_details: JSON.parse(JSON.stringify(persons.value)), // remove Vue Proxy
+        ordered_items: JSON.parse(JSON.stringify(cartStore.cartItems)),
+        customer_details: JSON.parse(JSON.stringify(persons.value)),
 
         home_collection: form.value.homeCollection ? 1 : 0,
     };
@@ -629,43 +632,41 @@ const singleOrderSubmit = async () => {
             payload
         );
 
-        // Frappe returns `message: {...}` OR direct `{...}`
         const responseData = res.data?.message ?? res.data ?? {};
-
         const ok = responseData.status === "success";
 
         // -----------------------------------------------------
-        // ✅ Success case
+        // ✅ SUCCESS → Redirect to Thank You page
         // -----------------------------------------------------
-        if (ok) {
-            backendMessage.value = {
-                text: responseData.successmessage || "Your order is submitted successfully",
-                type: "success",
-            };
-
-            // Reset form
-            form.value = {
-                pincode: "",
-                email: "",
-                mobile: "",
-                address: "",
-                date: "",
-                timeSlot: "",
-                homeCollection: false,
-                printedReports: false,
-            };
-
-            numPersons.value = "";
-            persons.value = [{ name: "", age: "", gender: "" }];
-            errors.value = {};
-
+        if (ok && responseData.order_id) {
             cartStore.clearCart?.();
-        } else {
+
+            router.replace({
+                name: "ThankYou",
+                params: { orderId: responseData.order_id }
+            });
+
+            return;
+        }
+
+        // -----------------------------------------------------
+        // ❌ Success but order_id missing
+        // -----------------------------------------------------
+        if (ok && !responseData.order_id) {
             backendMessage.value = {
-                text: responseData?.message || "Failed to create order.",
+                text: "Order placed but Order ID missing. Please contact support.",
                 type: "error",
             };
+            return;
         }
+
+        // -----------------------------------------------------
+        // ❌ Failure
+        // -----------------------------------------------------
+        backendMessage.value = {
+            text: responseData?.message || "Failed to create order.",
+            type: "error",
+        };
 
     } catch (err) {
         console.error("Order creation error:", err);
@@ -679,7 +680,6 @@ const singleOrderSubmit = async () => {
         loading.value = false;
     }
 };
-
 
 // ========================== FETCH INIT ==========================
 onMounted(async () => {

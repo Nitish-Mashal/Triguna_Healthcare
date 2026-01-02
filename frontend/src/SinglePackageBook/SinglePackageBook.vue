@@ -225,12 +225,13 @@
 
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useQRCodeStore } from '@/stores/useQRCodeStore'
 import MostBookedHealthCheckups from "../Home/MostBookedHealthCheckups.vue";
 
 const route = useRoute();
+const router = useRouter();
 // const packageName = route.params.name1;
 const packageName = decodeURIComponent(route.params.slug);
 const packageData = ref({});
@@ -455,7 +456,8 @@ const singleTestSubmit = async () => {
     // ✅ Validate form first
     const isValid = handleSubmit();
     if (!isValid) {
-        frontendSuccessMessage.value = "Please fix the highlighted errors before submitting.";
+        frontendSuccessMessage.value =
+            "Please fix the highlighted errors before submitting.";
         return;
     }
 
@@ -465,7 +467,8 @@ const singleTestSubmit = async () => {
         (await checkPincodeAvailability(true));
 
     if (!isPincodeValid) {
-        frontendSuccessMessage.value = "Please enter a valid pincode before booking.";
+        frontendSuccessMessage.value =
+            "Please enter a valid pincode before booking.";
         return;
     }
 
@@ -473,14 +476,14 @@ const singleTestSubmit = async () => {
 
     try {
         // -----------------------------------------------------
-        // ✅ Load QR code data from Pinia store (Correct Method)
+        // ✅ Load QR code data from Pinia store
         // -----------------------------------------------------
         const qrCodeStore = useQRCodeStore();
-        qrCodeStore.loadScannedId();  // <-- FIXED
+        qrCodeStore.loadScannedId();
         const scannedId = qrCodeStore.scannedId;
 
         // -----------------------------------------------------
-        // ✅ Prepare raw payload (Vue reactive objects avoided)
+        // ✅ Prepare payload
         // -----------------------------------------------------
         let rawPayload = {
             customer_name: persons.value[0]?.name || "",
@@ -500,58 +503,37 @@ const singleTestSubmit = async () => {
             customer_details: persons.value,
         };
 
-        // Add affiliate ID only if exists
         if (scannedId) {
             rawPayload.affiliated_id = scannedId;
         }
 
-        // -----------------------------------------------------
-        // ✅ Deep clone to remove Vue Proxy / refs
-        // -----------------------------------------------------
         const payload = JSON.parse(JSON.stringify(rawPayload));
-        console.log("Payload:", payload);
 
         // -----------------------------------------------------
-        // ✅ Send request
+        // ✅ Create Order API
         // -----------------------------------------------------
         const res = await axios.post(
             "/api/method/bloodtestnearme.api.order_api.create_order",
             payload
         );
 
-        // Frappe sometimes returns {message:{...}} or plain {...}
         const data = res.data?.message ?? res.data ?? {};
 
         // -----------------------------------------------------
-        // ✅ Handle backend success
+        // ✅ SUCCESS → Redirect to Thank You page
         // -----------------------------------------------------
-        if (data.status === "success") {
-            frontendSuccessMessage.value =
-                data.successmessage || "Your order is submitted successfully";
-
-            // Reset form on success
-            form.value = {
-                pincode: "",
-                email: "",
-                mobile: "",
-                address: "",
-                date: "",
-                timeSlot: "",
-                homeCollection: false,
-                printedReports: false,
-            };
-
-            numPersons.value = "";
-            persons.value = [{ name: "", age: "", gender: "" }];
-            pincodeMessage.value = "";
-            pincodeStatus.value = "";
-
-            // Auto-clear message
-            setTimeout(() => (frontendSuccessMessage.value = ""), 3000);
-        } else {
-            frontendSuccessMessage.value =
-                data.message || "Failed to create order. Please try again.";
+        if (data.status === "success" && data.order_id) {
+            router.replace({
+                name: "ThankYou",
+                params: { orderId: data.order_id } // <-- path param, not query
+            });
+            return;
         }
+
+        // ❌ Backend error
+        frontendSuccessMessage.value =
+            data.message || "Failed to create order. Please try again.";
+
     } catch (error) {
         console.error("API ERROR:", error.response?.data || error);
 

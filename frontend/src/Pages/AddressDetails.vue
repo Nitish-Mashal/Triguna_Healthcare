@@ -12,7 +12,7 @@
 
             <!-- Description -->
             <div v-if="testCenter?.description" class="mt-6 bold-test-color">
-                <h3 class="text-xl font-semibold">About This Test Center</h3>
+                <!-- <h3 class="text-xl font-semibold">About This Test Center</h3> -->
                 <p v-html="testCenter.description"></p>
             </div>
 

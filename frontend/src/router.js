@@ -197,6 +197,11 @@ const routes = [
         "Find answers to common questions about blood tests, full body health checkups, and home sample collection with Triguna Healthcare. Official Thyrocare partner.",
     },
   },
+  {
+    path: "/thank-you/:orderId", // <-- use :orderId
+    name: "ThankYou",
+    component: () => import("@/thankyou.vue"),
+  },
 
   // Catch All 404 | This should be the last route always
   {

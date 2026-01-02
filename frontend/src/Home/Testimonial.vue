@@ -8,7 +8,8 @@
                     Testimonials
                 </h2>
 
-                <a href="#"
+                <a href="https://www.google.com/search?q=Thyrocare+%E2%80%93+Akshayanagar+Begur&oq=thyrocare+&gs_lcrp=EgZjaHJvbWUqBggBEEUYOzIGCAAQRRg5MgYIARBFGDsyBggCEEUYPDIGCAMQRRhBMgYIBBBFGEEyBggFEEUYPDIGCAYQRRg8MgYIBxBFGEHSAQgzNDA4ajBqMagCALACAA&sourceid=chrome&ie=UTF-8&sei=TaFTafeHM--_0-kPiuKS0Qw#lrd=0x3bae14cb65a79fbf:0xe3e900f850587203,1"
+                    target="_blank"
                     class="text-sm bold-test-color font-medium flex items-center gap-1 hover:underline mt-2 sm:mt-0 whitespace-nowrap">
                     <span>View All</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
