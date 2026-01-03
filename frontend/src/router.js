@@ -198,7 +198,7 @@ const routes = [
     },
   },
   {
-    path: "/thank-you/:orderId", // <-- use :orderId
+    path: "/thank-you",
     name: "ThankYou",
     component: () => import("@/thankyou.vue"),
   },

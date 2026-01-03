@@ -643,7 +643,9 @@ const singleOrderSubmit = async () => {
 
             router.replace({
                 name: "ThankYou",
-                params: { orderId: responseData.order_id }
+                state: {
+                    orderId: responseData.order_id
+                }
             });
 
             return;

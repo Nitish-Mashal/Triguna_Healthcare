@@ -23,7 +23,7 @@
             </p>
 
             <!-- ✅ Order ID -->
-            <p v-if="orderId" class="text-sm text-gray-700 mb-5">
+            <p v-if="orderId" class="text-sm text-gray-700 mb-3">
                 <strong>Order ID:</strong>
                 <span class="text-[#001D55] font-semibold ml-1">
                     {{ orderId }}
@@ -49,16 +49,15 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
-const route = useRoute();
 const router = useRouter();
 
-// ✅ Read orderId ONLY from route params
-const orderId = ref(route.params.orderId || "");
+// ✅ Read from history state
+const orderId = ref(history.state?.orderId || "");
 
-// 🚫 Prevent direct access
 onMounted(() => {
+    // 🚫 Prevent direct access / refresh
     if (!orderId.value) {
         router.replace("/");
     }

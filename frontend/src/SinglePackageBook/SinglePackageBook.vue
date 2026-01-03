@@ -525,7 +525,9 @@ const singleTestSubmit = async () => {
         if (data.status === "success" && data.order_id) {
             router.replace({
                 name: "ThankYou",
-                params: { orderId: data.order_id } // <-- path param, not query
+                state: {
+                    orderId: data.order_id
+                }
             });
             return;
         }

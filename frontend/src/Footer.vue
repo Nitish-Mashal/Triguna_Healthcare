@@ -59,12 +59,22 @@
                         </li>
                     </ul>
                 </div>
+            </div>
 
+            <div class="text-sm mt-2 mb-3 ml-8">
+                <div class="">
+                    Triguna Healthcare,
+                    Sy No, 373/3, Site No 5, Shop No 6, 10th Cross, Classic Paradise Layout, Begur Hulimavu Road, Begur,
+                    Bangalore, Karnataka 560068
+                </div>
+                <a href="tel:9611011266" class="text-white no-underline hover:underline">
+                    9611011266
+                </a>
             </div>
 
             <!-- ✅ Footer Bottom -->
             <div :class="[
-                'flex flex-col md:flex-row items-start md:items-center text-sm gap-4 sm:gap-20 ml-4 sm:ml-8',
+                'flex flex-col md:flex-row items-start md:items-center text-sm gap-4 sm:gap-20 ml-8 sm:ml-8',
                 isSmallScreen ? 'mt-3' : otherPackages.length > 0 ? 'mt-3' : 'mt-6'
             ]">
                 <div class="text-white">
