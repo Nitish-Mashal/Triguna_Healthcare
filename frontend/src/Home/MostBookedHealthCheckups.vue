@@ -37,7 +37,9 @@
 
                   <!-- Image -->
                   <router-link :to="`/${pkg.url}`" class="no-underline rounded-2">
-                    <img :src="pkg.image || '/files/placeholder.jpg'" class="w-96 h-36 object-cover p-2 rounded-xl" />
+                    <img :src="pkg.image || '/files/placeholder.jpg'"
+                      :alt="getAltFromImage(pkg.image, pkg.title || 'Full Body Health Checkup')" loading="lazy"
+                      class="w-96 h-36 object-cover p-2 rounded-xl" />
                   </router-link>
 
                   <!-- Content -->
@@ -145,6 +147,18 @@ const carouselBreakpoints = {
   640: { itemsToShow: 2.20, snapAlign: "start" },
   1024: { itemsToShow: 4.20, snapAlign: "start" }
 };
+
+const getAltFromImage = (imageUrl, fallback) => {
+  if (!imageUrl) return fallback;
+
+  return imageUrl
+    .split("/")
+    .pop()
+    .split(".")[0]
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
 
 // ⭐ Fetch only 'mostbooked' packages
 const fetchMostBookedPackages = async () => {
