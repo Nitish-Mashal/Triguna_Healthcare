@@ -42,7 +42,8 @@
 
                         <!-- 🖼 Image -->
                         <router-link :to="`/${pkg.url}`" class="w-full sm:w-auto no-underline">
-                            <img :src="pkg.image || '/files/placeholder.jpg'" alt="Health Package" loading="lazy"
+                            <img :src="pkg.image || '/files/placeholder.jpg'"
+                                :alt="getAltFromImage(pkg.image, pkg.name1 || 'Health Checkup Package')" loading="lazy"
                                 class="w-full h-40 object-cover rounded-xl px-2 mt-2" />
                         </router-link>
 
@@ -176,6 +177,17 @@ const filteredPackages = computed(() => {
         ? packages.value
         : packages.value.filter((pkg) => pkg.name1?.toLowerCase().includes(query));
 });
+
+const getAltFromImage = (imageUrl, fallback) => {
+    if (!imageUrl) return fallback;
+
+    return imageUrl
+        .split("/")               // get last part
+        .pop()                     // filename
+        .split(".")[0]             // remove extension
+        .replace(/[-_]/g, " ")     // clean hyphens/underscores
+        .replace(/\b\w/g, c => c.toUpperCase()); // capitalize
+};
 
 // ✅ Fetch Data with Graceful Fallback
 const fetchPackages = async () => {
