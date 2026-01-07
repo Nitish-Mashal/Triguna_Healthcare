@@ -62,13 +62,15 @@
             </div>
 
             <div class="text-sm mt-2 mb-3 ml-8">
-                <div class="">
-                    Triguna Healthcare,
-                    Sy No, 373/3, Site No 5, Shop No 6, 10th Cross, Classic Paradise Layout, Begur Hulimavu Road, Begur,
-                    Bangalore, Karnataka 560068
+                <div class="mb-3">
+                    Triguna Healthcare, <br>
+                    Sy No, 373/3, Site No 5, Shop No 6, <br>
+                    10th Cross, Classic Paradise Layout, <br>
+                    Begur Hulimavu Road, Begur, <br>
+                    Bangalore, Karnataka 560068 <br>
                 </div>
-                <a href="tel:9611011266" class="text-white no-underline hover:underline">
-                    9611011266
+                <a href="tel:+919611011266" class="text-white no-underline hover:underline">
+                    +91 9611011266
                 </a>
             </div>
 

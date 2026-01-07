@@ -112,10 +112,10 @@
 
 
             <!-- Phone + Google Map Buttons -->
-            <div class="grid grid-cols-2 gap-2">
+            <div v-if="loc.contact_number || loc.map_embed_link" class="grid grid-cols-2 gap-2">
 
               <!-- Phone Button -->
-              <a :href="'tel:' + loc.contact_number"
+              <a v-if="loc.contact_number" :href="'tel:' + loc.contact_number"
                 class="flex items-center justify-center gap-2 global-bg-color text-white px-3 py-2 rounded-full text-sm font-medium hover:bg-[#003d80] transition-all whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-5 h-5">
@@ -126,7 +126,7 @@
               </a>
 
               <!-- Google Map Button -->
-              <a :href="loc.map_embed_link" target="_blank"
+              <a v-if="loc.map_embed_link" :href="loc.map_embed_link" target="_blank"
                 class="flex items-center justify-center gap-2 border border-gray-300 bold-test-color px-1 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="#001D55" class="w-5 h-5">
@@ -142,14 +142,6 @@
           </div>
 
         </div>
-      </div>
-
-
-      <!-- Office Timings -->
-      <div class="bg-white text-center rounded-2xl shadow-md mt-10 py-4 max-w-md mx-auto">
-        <h3 class="text-xl font-bold text-[#001D55] mb-2">Office Timings</h3>
-        <p class="text-gray-700">Mon – Fri: 9:30 AM – 6:00 PM</p>
-        <p class="text-gray-700">Sat: 9:30 AM – 4:00 PM</p>
       </div>
 
     </div>
@@ -227,10 +219,10 @@ const fetchLocations = async () => {
       address: `${center.address_line?.trim() || ""}, ${center.city || ""} - ${center.pincode || ""}`,
       contact_number: center.contact_number || "",
       email: center.email_id || "",
-      map_embed_link: center.map_embed_link || "#",
+      map_embed_link: center.map_embed_link || "", // 🔥 FIX HERE
       description: center.description || "",
       image: center.image || null,
-      url: center.url, // used for router-link
+      url: center.url,
     }));
 
   } catch (error) {

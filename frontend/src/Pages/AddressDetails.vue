@@ -1,11 +1,10 @@
 <template>
     <div>
         <!-- 🔹 Banner -->
-        <div class="h-[250px] sm:h-[400px] w-full bg-cover bg-center" :style="{
-            backgroundImage: testCenter?.image
-                ? `url(${testCenter.image})`
-                : 'url(/files/AddressDetail.jpg)'
-        }"></div>
+        <div v-if="testCenter?.image" class="h-[250px] sm:h-[400px] w-full bg-cover bg-center" :style="{
+            backgroundImage: `url(${testCenter.image})`
+        }">
+        </div>
 
         <!-- 🔹 Content -->
         <div class="container">

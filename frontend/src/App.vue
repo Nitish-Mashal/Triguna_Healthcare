@@ -29,7 +29,7 @@ export default {
     const route = useRoute()
     const router = useRouter()
 
-    const baseUrl = "https://triguna.quantumberg.com"
+    const baseUrl = "https://www.trigunahealthcare.com"
 
     const updateCanonical = () => {
       const canonicalUrl = baseUrl + router.resolve(route).path
