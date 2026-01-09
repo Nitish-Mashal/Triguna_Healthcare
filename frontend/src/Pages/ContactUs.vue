@@ -18,7 +18,7 @@
             <div class="md:px-5 max-w-md">
 
               <h2 class="text-4xl font-bold bold-test-color mb-1">Get in Touch</h2>
-              <p class="text-gray-600 text-sm mb-3">Have questions? We’d love to hear from you.</p>
+              <p class="text-gray-600 text-sm mb-3">Have questions? We'd love to hear from you.</p>
 
               <!-- ---------------- FORM START ---------------- -->
               <el-form ref="contactForm" :model="form" :rules="rules" label-position="top">
