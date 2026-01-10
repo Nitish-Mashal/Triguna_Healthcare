@@ -63,26 +63,25 @@
                                 class="h-full">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 h-full">
                                     <div v-for="(testimonial, i) in pair" :key="i"
-                                        class="bg-gray-100 px-5 py-4 rounded-xl shadow-sm flex flex-col justify-between h-full overflow-hidden min-h-[260px]">
+                                        class="bg-gray-100 px-5 py-2 rounded-xl shadow-sm flex flex-col justify-between h-full overflow-hidden min-h-[260px]">
                                         <div class="flex items-center justify-between gap-3">
                                             <img :src="testimonial.image" alt="User"
                                                 class="w-14 h-14 rounded-full object-cover flex-shrink-0" />
                                             <span class="text-4xl text-blue-900 leading-none">&rdquo;</span>
                                         </div>
 
-                                        <div class="mt-3 flex-1 overflow-hidden">
-                                            <div class="pb-2">
-                                                <div class="font-semibold text-blue-900 truncate pb-1">
+                                        <div class="mt-2 flex-1 overflow-hidden">
+                                            <div class="pb-1">
+                                                <div class="font-semibold text-blue-900 truncate">
                                                     {{ testimonial.name }}
                                                 </div>
-                                                <div class="text-sm text-blue-500 pb-2">{{ testimonial.role }}</div>
                                             </div>
 
                                             <div class="font-semibold text-blue-900 text-sm sm:text-base leading-snug">
                                                 {{ testimonial.highlight }}
                                             </div>
                                             <div
-                                                class="text-gray-600 text-xs sm:text-sm mt-2 overflow-hidden text-ellipsis line-clamp-3">
+                                                class="text-gray-600 text-xs sm:text-sm mt-1 overflow-hidden text-ellipsis line-clamp-3">
                                                 {{ testimonial.description }}
                                             </div>
                                         </div>
@@ -139,58 +138,36 @@ export default {
             isMobile: false,
             testimonials: [
                 {
-                    name: "Amber Morales",
-                    role: "Product Designer",
-                    image: "/files/TestimonialImg.png",
+                    name: "Aishwarya S N",
+                    image: "/files/TestimonialFemale.jpg",
                     highlight:
-                        "Duis aute irure dolor in reprehe velit esse cillum dolo culpa officia.",
+                        "I have using thyrocare service for the last 5 years.",
                     description:
-                        "Duis aute irure dolor in reprehenderit in velit esse cillum dolore fugiat culpa officia deserunt mollit est laborum.",
+                        "They are very prompt, on -time and accommodate as per customer request. The sample collectors maintain good hygiene and are experienced. The results are quick and efficient.",
                 },
                 {
-                    name: "John Doe",
-                    role: "UI Engineer",
+                    name: "Tohid Inamdar",
                     image: "/files/TestimonialImg.png",
                     highlight:
-                        "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
+                        "One of the best diagnostic centre for blood testing.",
                     description:
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+                        "Best service to collect blood from home. They will visit house and collect the blood and report will be provided same day. Trusted one, so will recommend to anyone who is looking for home blood collection.",
                 },
                 {
-                    name: "Sarah Lee",
-                    role: "Frontend Developer",
-                    image: "/files/TestimonialImg.png",
+                    name: "Hema Shree",
+                    image: "/files/TestimonialFemale.jpg",
                     highlight:
-                        "Velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.",
+                        "I had an excellent experience with Thyrocare's home blood test service today.",
                     description:
-                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                        "The lab technician, Shankar, was highly professional and ensured a smooth, painless sample collection. The entire process was hassle-free, and I was impressed by the prompt service—I received my report on the same day. Highly recommend Thyrocare for reliable and efficient diagnostics!",
                 },
                 {
-                    name: "David Smith",
-                    role: "Project Manager",
-                    image: "/files/TestimonialImg.png",
+                    name: "Anu Jayashankar",
+                    image: "/files/TestimonialFemale.jpg",
                     highlight:
-                        "Excepteur sint occaecat cupidatat non proident sunt in culpa.",
+                        "Very quick and prompt response. So far Thyrocare Lab's services have been very satisfactory.",
                     description:
-                        "Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam.",
-                },
-                {
-                    name: "Jane Cooper",
-                    role: "QA Engineer",
-                    image: "/files/TestimonialImg.png",
-                    highlight:
-                        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-                    description:
-                        "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur.",
-                },
-                {
-                    name: "Michael Brown",
-                    role: "Marketing Lead",
-                    image: "/files/TestimonialImg.png",
-                    highlight:
-                        "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.",
-                    description:
-                        "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio.",
+                        "Samples are collected neatly and ensuring all safety protocols. Test Reports are also given without too much of a delay. Would definitely recommend them!",
                 },
             ],
         };
