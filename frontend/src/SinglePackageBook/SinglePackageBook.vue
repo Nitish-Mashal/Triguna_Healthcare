@@ -453,7 +453,9 @@ const singleTestSubmit = async () => {
     frontendSuccessMessage.value = "";
     errors.value = {};
 
+    // -----------------------------------------------------
     // ✅ Validate form first
+    // -----------------------------------------------------
     const isValid = handleSubmit();
     if (!isValid) {
         frontendSuccessMessage.value =
@@ -461,7 +463,9 @@ const singleTestSubmit = async () => {
         return;
     }
 
-    // ✅ Auto-check pincode if not manually checked
+    // -----------------------------------------------------
+    // ✅ Auto-check pincode
+    // -----------------------------------------------------
     const isPincodeValid =
         pincodeStatus.value === "success" ||
         (await checkPincodeAvailability(true));
@@ -476,11 +480,33 @@ const singleTestSubmit = async () => {
 
     try {
         // -----------------------------------------------------
-        // ✅ Load QR code data from Pinia store
+        // ✅ Load QR code
         // -----------------------------------------------------
         const qrCodeStore = useQRCodeStore();
         qrCodeStore.loadScannedId();
         const scannedId = qrCodeStore.scannedId;
+
+        // -----------------------------------------------------
+        // ✅ Safe price parser
+        // -----------------------------------------------------
+        const parsePrice = (value) => {
+            if (!value) return 0;
+            return Number(String(value).replace(/,/g, ""));
+        };
+
+        // -----------------------------------------------------
+        // ✅ Calculate item-level prices
+        // -----------------------------------------------------
+        const totalItemPrice = parsePrice(packageData.value?.actual_price);
+        const discountedItemPrice = parsePrice(packageData.value?.discounted_price);
+
+        // -----------------------------------------------------
+        // ✅ Correct discount calculation (IMPORTANT)
+        // -----------------------------------------------------
+        const discountAmount =
+            totalItemPrice > discountedItemPrice
+                ? totalItemPrice - discountedItemPrice
+                : 0;
 
         // -----------------------------------------------------
         // ✅ Prepare payload
@@ -497,8 +523,11 @@ const singleTestSubmit = async () => {
             appointment_time: form.value.timeSlot,
             number_of_persons: numPersons.value || 1,
             hard_copy_required: form.value.printedReports ? 1 : 0,
-            total_price: totalAmount.value,
-            total_item_price: packageData.value.discounted_price,
+
+            total_item_price: totalItemPrice,              // actual_price
+            total_price: Number(totalAmount.value || 0),   // payable (incl charges)
+            discount: discountAmount,                      // ✅ CORRECT
+
             ordered_items: [packageData.value],
             customer_details: persons.value,
         };
@@ -520,19 +549,16 @@ const singleTestSubmit = async () => {
         const data = res.data?.message ?? res.data ?? {};
 
         // -----------------------------------------------------
-        // ✅ SUCCESS → Redirect to Thank You page
+        // ✅ SUCCESS
         // -----------------------------------------------------
         if (data.status === "success" && data.order_id) {
             router.replace({
                 name: "ThankYou",
-                state: {
-                    orderId: data.order_id
-                }
+                state: { orderId: data.order_id }
             });
             return;
         }
 
-        // ❌ Backend error
         frontendSuccessMessage.value =
             data.message || "Failed to create order. Please try again.";
 
@@ -547,6 +573,7 @@ const singleTestSubmit = async () => {
         isLoading.value = false;
     }
 };
+
 
 // 🧩 Check Pincode Availability (Backend Message Only)
 const checkPincodeAvailability = async (autoCheck = false) => {

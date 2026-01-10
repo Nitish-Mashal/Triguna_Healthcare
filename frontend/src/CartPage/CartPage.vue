@@ -553,6 +553,21 @@ const checkPincodeAvailability = async () => {
     }
 };
 
+const totalActualItemPrice = computed(() =>
+    cartStore.cartItems.reduce(
+        (sum, item) => sum + Number(item.actual_price || 0),
+        0
+    )
+);
+
+// const discountAmount = computed(() => {
+//     const actual = Number(totalActualItemPrice.value || 0);
+//     const payable = Number(totalAmount.value || 0);
+
+//     const discount = actual - payable;
+//     return discount > 0 ? discount : 0;
+// });
+
 // ========================== SUBMIT ORDER ==========================
 const singleOrderSubmit = async () => {
     backendMessage.value = { text: "", type: "" };
@@ -566,7 +581,7 @@ const singleOrderSubmit = async () => {
     }
 
     // -----------------------------------------------------
-    // ✅ Validate pincode first
+    // ✅ Validate pincode
     // -----------------------------------------------------
     if (pincodeStatus.value !== "success") {
         await checkPincodeAvailability();
@@ -580,14 +595,43 @@ const singleOrderSubmit = async () => {
     }
 
     // -----------------------------------------------------
-    // ✅ Load scanned ID from localStorage using Pinia store
+    // ✅ Load QR code
     // -----------------------------------------------------
     const qrCodeStore = useQRCodeStore();
     qrCodeStore.loadScannedId();
     const scannedId = qrCodeStore.scannedId;
 
     // -----------------------------------------------------
-    // ✅ Prepare pure JS payload
+    // ✅ Safe price parser (IMPORTANT)
+    // -----------------------------------------------------
+    const parsePrice = (value) => {
+        if (!value) return 0;
+        return Number(String(value).replace(/,/g, ""));
+    };
+
+    // -----------------------------------------------------
+    // ✅ Calculate totals from CART ITEMS ONLY
+    // -----------------------------------------------------
+    const totalActualItemPrice = cartStore.cartItems.reduce(
+        (sum, item) => sum + parsePrice(item.actual_price),
+        0
+    );
+
+    const totalDiscountedItemPrice = cartStore.cartItems.reduce(
+        (sum, item) => sum + parsePrice(item.discounted_price),
+        0
+    );
+
+    // -----------------------------------------------------
+    // ✅ Correct discount calculation
+    // -----------------------------------------------------
+    const discountAmount =
+        totalActualItemPrice > totalDiscountedItemPrice
+            ? totalActualItemPrice - totalDiscountedItemPrice
+            : 0;
+
+    // -----------------------------------------------------
+    // ✅ Prepare payload
     // -----------------------------------------------------
     const payload = {
         customer_name: persons.value[0]?.name || "",
@@ -603,8 +647,10 @@ const singleOrderSubmit = async () => {
         number_of_persons: Number(numPersons.value) || persons.value.length || 1,
         hard_copy_required: form.value.printedReports ? 1 : 0,
 
-        total_price: totalAmount.value,
-        total_item_price: totalBasePrice.value,
+        // ✅ Pricing (FINAL & CORRECT)
+        total_item_price: totalActualItemPrice, // actual_price sum
+        total_price: Number(totalAmount.value || 0), // payable (incl charges)
+        discount: discountAmount, // ✅ CORRECT discount
 
         ordered_items: JSON.parse(JSON.stringify(cartStore.cartItems)),
         customer_details: JSON.parse(JSON.stringify(persons.value)),
@@ -612,12 +658,8 @@ const singleOrderSubmit = async () => {
         home_collection: form.value.homeCollection ? 1 : 0,
     };
 
-    // -----------------------------------------------------
-    // ✅ Add affiliated_id only when available
-    // -----------------------------------------------------
     if (scannedId) {
         payload.affiliated_id = scannedId;
-        console.log("📦 Including affiliated_id in payload:", scannedId);
     }
 
     submitting.value = true;
@@ -636,35 +678,18 @@ const singleOrderSubmit = async () => {
         const ok = responseData.status === "success";
 
         // -----------------------------------------------------
-        // ✅ SUCCESS → Redirect to Thank You page
+        // ✅ SUCCESS
         // -----------------------------------------------------
         if (ok && responseData.order_id) {
             cartStore.clearCart?.();
 
             router.replace({
                 name: "ThankYou",
-                state: {
-                    orderId: responseData.order_id
-                }
+                state: { orderId: responseData.order_id }
             });
-
             return;
         }
 
-        // -----------------------------------------------------
-        // ❌ Success but order_id missing
-        // -----------------------------------------------------
-        if (ok && !responseData.order_id) {
-            backendMessage.value = {
-                text: "Order placed but Order ID missing. Please contact support.",
-                type: "error",
-            };
-            return;
-        }
-
-        // -----------------------------------------------------
-        // ❌ Failure
-        // -----------------------------------------------------
         backendMessage.value = {
             text: responseData?.message || "Failed to create order.",
             type: "error",
@@ -682,6 +707,7 @@ const singleOrderSubmit = async () => {
         loading.value = false;
     }
 };
+
 
 // ========================== FETCH INIT ==========================
 onMounted(async () => {
