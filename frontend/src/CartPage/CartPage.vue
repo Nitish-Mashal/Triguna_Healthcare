@@ -321,7 +321,7 @@ const minDate = ref(new Date().toISOString().split("T")[0]);
 const generateTimeSlots = () => {
     const slots = [];
     const start = new Date(); start.setHours(5, 30, 0, 0);
-    const end = new Date(); end.setHours(19, 0, 0, 0);
+    const end = new Date(); end.setHours(18, 30, 0, 0);
 
     while (start < end) {
         const endTime = new Date(start.getTime() + 30 * 60000);
