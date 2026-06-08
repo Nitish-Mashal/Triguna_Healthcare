@@ -40,7 +40,7 @@
       <div class="flex items-center justify-between w-full md:w-auto">
         <!-- <div class="flex items-center space-x-2 bg-white rounded-full px-10 py-1"> -->
         <router-link to="/">
-          <img src="/trigunalogo.png" alt="Triguna Healthcare" class="h-14" />
+          <img src="/Thyrocare.png" alt="Triguna Healthcare" class="h-14" />
         </router-link>
         <!-- </div> -->
 

@@ -75,8 +75,7 @@
 
                       <!-- Price -->
                       <div class="flex items-center gap-2">
-                        <div v-if="pkg.actual_price !== pkg.discounted_price"
-                          class="text-gray-500 line-through text-sm">
+                        <div v-if="pkg.actual_price !== pkg.discounted_price" class="text-orange-700 line-through text-sm">
                           ₹ {{ pkg.actual_price }}
                         </div>
                         <div class="text-indigo-900 font-semibold text-sm">

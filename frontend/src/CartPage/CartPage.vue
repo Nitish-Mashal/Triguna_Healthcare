@@ -18,7 +18,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <h5 class="text-[#001D55] font-semibold">Cart Items</h5>
                         <router-link to="/book-blood-tests"
-                            class="flex items-center text-red-700 font-medium no-underline hover:underline-offset-2">
+                            class="flex items-center text-orange-700 font-medium no-underline hover:underline-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4 h-4 mr-1">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -34,7 +34,7 @@
                             class="flex justify-between items-center mb-3 rounded-lg">
                             <div>
                                 <h6 class="font-semibold text-[#001D55]">{{ item.name1 }}</h6>
-                                <div class="text-gray-500">
+                                <div class="text-orange-700">
                                     <span class="line-through">₹ {{ item.actual_price }}</span>
                                     <span class="font-semibold text-[#001D55] ml-1">₹ {{ item.discounted_price }}</span>
                                 </div>
@@ -281,9 +281,16 @@ const homeCollectionCharge = 200;
 const printedReportCharge = 75;
 
 // ========================== COMPUTED ==========================
-const totalBasePrice = computed(() =>
-    cartStore.cartItems.reduce((sum, item) => sum + Number(item.discounted_price || 0), 0)
-);
+const totalBasePrice = computed(() => {
+    const personCount = Number(numPersons.value || 1);
+
+    const cartPrice = cartStore.cartItems.reduce(
+        (sum, item) => sum + Number(item.discounted_price || 0),
+        0
+    );
+
+    return cartPrice * personCount;
+});
 
 const finalAmount = computed(() => {
     let total = totalBasePrice.value;
@@ -560,14 +567,6 @@ const totalActualItemPrice = computed(() =>
     )
 );
 
-// const discountAmount = computed(() => {
-//     const actual = Number(totalActualItemPrice.value || 0);
-//     const payable = Number(totalAmount.value || 0);
-
-//     const discount = actual - payable;
-//     return discount > 0 ? discount : 0;
-// });
-
 // ========================== SUBMIT ORDER ==========================
 const singleOrderSubmit = async () => {
     backendMessage.value = { text: "", type: "" };
@@ -612,15 +611,19 @@ const singleOrderSubmit = async () => {
     // -----------------------------------------------------
     // ✅ Calculate totals from CART ITEMS ONLY
     // -----------------------------------------------------
-    const totalActualItemPrice = cartStore.cartItems.reduce(
-        (sum, item) => sum + parsePrice(item.actual_price),
-        0
-    );
+    const personCount = Number(numPersons.value || 1);
 
-    const totalDiscountedItemPrice = cartStore.cartItems.reduce(
-        (sum, item) => sum + parsePrice(item.discounted_price),
-        0
-    );
+    const totalActualItemPrice =
+        cartStore.cartItems.reduce(
+            (sum, item) => sum + parsePrice(item.actual_price),
+            0
+        ) * personCount;
+
+    const totalDiscountedItemPrice =
+        cartStore.cartItems.reduce(
+            (sum, item) => sum + parsePrice(item.discounted_price),
+            0
+        ) * personCount;
 
     // -----------------------------------------------------
     // ✅ Correct discount calculation

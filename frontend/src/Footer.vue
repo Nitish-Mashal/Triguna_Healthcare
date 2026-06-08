@@ -1,80 +1,110 @@
 <template>
-    <footer class="global-bg-color px-4 sm:px-5 py-6 mt-4 text-white">
-        <div class="container sm:px-5">
-            <!-- ✅ Social Media Icons -->
-            <nav class="flex justify-start gap-4 mb-4 flex-wrap ml-4 sm:ml-8">
-                <a v-for="(icon, index) in socialLinks" :key="index" :href="icon.url" target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-white text-lg hover:text-gray-300 transition-transform transform hover:scale-110"
-                    :aria-label="icon.name">
-                    <i :class="icon.icon"></i>
-                </a>
-            </nav>
+    <footer class="global-bg-color text-white py-8">
+        <div class="container mx-auto px-4">
 
-            <!-- ✅ Footer Sections -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 text-left">
+            <!-- ================= TOP SECTION ================= -->
+            <div
+                class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/20 pb-6 mb-6">
+
+                <!-- Logo -->
+                <div>
+                    <h6 class="text-sm uppercase tracking-wider mb-2">
+                        Owned and Managed By
+                    </h6>
+
+                    <img src="/Triguna.png" alt="Triguna Healthcare" class="h-10">
+                </div>
+
+                <!-- Social Icons -->
+                <div class="md:mt-0">
+                    <h6 class="text-sm uppercase tracking-wider mb-3 text-center md:text-right">
+                        Follow Us
+                    </h6>
+
+                    <div class="flex gap-4 justify-center md:justify-end">
+                        <a v-for="(icon, index) in socialLinks" :key="index" :href="icon.url" target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-white text-xl hover:text-gray-300 transition-transform hover:scale-110">
+                            <i :class="icon.icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MIDDLE SECTION ================= -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
                 <!-- Quick Links -->
                 <div>
-                    <h2 class="font-bold text-lg sm:text-xl mb-3 ml-8">Quick Links</h2>
+                    <h2 class="font-bold text-lg mb-4 ml-8">
+                        Quick Links
+                    </h2>
+
                     <ul class="space-y-2 text-sm">
                         <li v-for="(link, index) in quickLinks" :key="'q' + index">
-                            <router-link :to="link.path"
-                                class="text-white no-underline hover:underline focus:outline-none focus:underline">
+                            <router-link :to="link.path" class="text-white no-underline hover:underline">
                                 {{ link.name }}
                             </router-link>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Most Popular Packages -->
-                <div :class="[
-                    'transition-all',
-                    otherPackages.length > 0 ? 'mb-3' : 'mb-6',
-                    isSmallScreen ? 'mb-2' : ''
-                ]">
-                    <h2 class="font-bold text-lg sm:text-xl mb-3 sm:mb-3 ml-8">
+                <!-- Health Checkups -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4 ml-8">
                         Other Health Checkups
                     </h2>
+
                     <ul class="space-y-2 text-sm">
                         <li v-for="(pkg, index) in popularPackages" :key="'p' + index">
                             <router-link :to="{ name: 'SinglePackageBook', params: { slug: pkg.url } }"
-                                class="text-white no-underline hover:underline cursor-pointer">
+                                class="text-white no-underline hover:underline">
                                 {{ pkg.name }}
                             </router-link>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Other Packages -->
-                <div v-if="otherPackages.length > 0">
-                    <h2 class="font-bold text-lg sm:text-xl mb-3 sm:mb-3 ml-8">
+                <!-- Lab Tests -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4 ml-8">
                         Other Lab Tests
                     </h2>
+
                     <ul class="space-y-2 text-sm">
                         <li v-for="(pkg, index) in otherPackages" :key="'o' + index">
                             <router-link :to="{ name: 'SinglePackageBook', params: { slug: pkg.url } }"
-                                class="text-white no-underline hover:underline cursor-pointer">
+                                class="text-white no-underline hover:underline">
                                 {{ pkg.name }}
                             </router-link>
                         </li>
                     </ul>
                 </div>
-            </div>
 
-            <div class="text-sm mt-2 mb-3 ml-8">
-                <div class="mb-3">
-                    Triguna Healthcare, <br>
-                    Sy No, 373/3, Site No 5, Shop No 6, <br>
-                    10th Cross, Classic Paradise Layout, <br>
-                    Begur Hulimavu Road, Begur, <br>
-                    Bangalore, Karnataka 560068 <br>
+                <!-- Address -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4">
+                        Address
+                    </h2>
+
+                    <div class="text-sm leading-6">
+                        Triguna Healthcare <br>
+                        Sy No, 373/3, Site No 5, Shop No 6 <br>
+                        10th Cross, Classic Paradise Layout <br>
+                        Begur Hulimavu Road, Begur <br>
+                        Bangalore, Karnataka 560068
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="tel:+919611011266" class="text-white no-underline hover:underline">
+                            +91 9611011266
+                        </a>
+                    </div>
                 </div>
-                <a href="tel:+919611011266" class="text-white no-underline hover:underline">
-                    +91 9611011266
-                </a>
+
             </div>
 
-            <!-- ✅ Footer Bottom -->
+            <!-- ================= BOTTOM SECTION ================= -->
             <div :class="[
                 'flex flex-col md:flex-row items-start md:items-center text-sm gap-4 sm:gap-20 ml-8 sm:ml-8',
                 isSmallScreen ? 'mt-3' : otherPackages.length > 0 ? 'mt-3' : 'mt-6'

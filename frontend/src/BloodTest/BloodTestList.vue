@@ -52,7 +52,7 @@
                             <div class="flex items-center gap-2">
 
                                 <!-- Show actual price only when it's different -->
-                                <p v-if="pkg.actual_price != pkg.discounted_price" class="text-gray-400 line-through">
+                                <p v-if="pkg.actual_price != pkg.discounted_price" class="text-orange-700 line-through">
                                     ₹ {{ pkg.actual_price }}
                                 </p>
 

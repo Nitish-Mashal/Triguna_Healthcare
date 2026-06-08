@@ -49,7 +49,7 @@
                                         <!-- Prices -->
                                         <div class="flex items-center gap-2">
                                             <template v-if="pkg.actual_price != pkg.discounted_price">
-                                                <div class="text-gray-400 line-through">₹ {{ pkg.actual_price }}</div>
+                                                <div class="text-orange-700 line-through">₹ {{ pkg.actual_price }}</div>
                                                 <div class="font-semibold bold-test-color">₹ {{ pkg.discounted_price }}
                                                 </div>
                                             </template>

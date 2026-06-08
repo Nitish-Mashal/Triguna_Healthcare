@@ -183,7 +183,10 @@
 
                                 <!-- Price Summary -->
                                 <div class="mt-3">
-                                    <p><strong>Test/Package Price:</strong> ₹{{ packageData.discounted_price }}</p>
+                                    <p>
+                                        <strong>Test/Package Price:</strong>
+                                        ₹{{ (parseFloat(packageData.discounted_price || 0) * (numPersons || 1)) }}
+                                    </p>
 
                                     <!-- ✅ Show Home Collection only if price < 300 -->
                                     <p v-if="packageData.discounted_price < 300">
@@ -790,10 +793,23 @@ const handleSubmit = () => {
 
 // 🧮 Dynamic total amount
 const finalAmount = computed(() => {
-    const basePrice = parseFloat(packageData.value.discounted_price || 0);
+    const personCount = Number(numPersons.value || 1);
+
+    // Package price × number of persons
+    const basePrice =
+        parseFloat(packageData.value.discounted_price || 0) * personCount;
+
     let total = basePrice;
-    if (basePrice < 300) total += homeCollectionCharge.value;
-    if (form.value.printedReports) total += printedReportCharge.value;
+
+    // Existing calculation remains unchanged
+    if (parseFloat(packageData.value.discounted_price || 0) < 300) {
+        total += homeCollectionCharge.value;
+    }
+
+    if (form.value.printedReports) {
+        total += printedReportCharge.value;
+    }
+
     return total;
 });
 
