@@ -1541,16 +1541,6 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.trigunahealthcare.com/book/jaanch-diabetic-screen</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.trigunahealthcare.com/book/jaanch-heart-screen-advanced</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://www.trigunahealthcare.com/book/jaanch-heart-screen-basic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -2206,17 +2196,17 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.trigunahealthcare.com/book/urine</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://www.trigunahealthcare.com/book/urine-culture-and-susceptibility-sensitivity-test</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.trigunahealthcare.com/book/urine-element-analysis-profile-thyrocare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.trigunahealthcare.com/book/urine-microalbumin-test</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -3426,16 +3416,6 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://www.trigunahealthcare.com/jaanch-diabetic-screen</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://www.trigunahealthcare.com/jaanch-heart-screen-advanced</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
     <loc>https://www.trigunahealthcare.com/jaanch-heart-screen-basic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -4116,17 +4096,17 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://www.trigunahealthcare.com/urine</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
     <loc>https://www.trigunahealthcare.com/urine-culture-and-susceptibility-sensitivity-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://www.trigunahealthcare.com/urine-element-analysis-profile-thyrocare</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.trigunahealthcare.com/urine-microalbumin-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -4249,50 +4229,5 @@
     <loc>https://www.trigunahealthcare.com/women-health-checkups</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.trigunahealthcare.com/assets/triguna_healthcare/Thyrocare.png</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://www.trigunahealthcare.com/full-body-health-checkups</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-      <loc>https://www.trigunahealthcare.com/urine-microalbumin-test</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
-  </url>
-
-  <url>
-      <loc>https://www.trigunahealthcare.com/folate-folic-acid-vitamin-b9</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
-  </url>
-
-  <url>
-      <loc>https://www.trigunahealthcare.com/ca-19.9-cancer-antigen-blood-test</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
-  </url>
-
-  <url>
-      <loc>https://www.trigunahealthcare.com/jaanch-bone-profile-advanced</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
-  </url>
-
-  <url>
-      <loc>https://www.trigunahealthcare.com/bone-profile-basic</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
-  </url>
-
-  <url>
-      <loc>https://www.trigunahealthcare.com/torch-all-ten-profile</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.70</priority>
   </url>
 </urlset>
