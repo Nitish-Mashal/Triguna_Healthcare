@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import axios from "axios";
 import { useCartStore } from "@/stores/cartStore";
 
@@ -147,6 +147,66 @@ const cartStore = useCartStore();
 const searchQuery = ref("");
 const packages = ref([]);
 const loading = ref(true);
+
+// =====================================================
+// SCHEMA.ORG
+// =====================================================
+
+const SCHEMA_ID = "blood-test-list-schema";
+
+const bloodTestSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://trigunahealthcare.com",
+    "url": "https://trigunahealthcare.com",
+    "name": "Book Individual Blood Tests Online | Triguna Healthcare",
+    "description":
+        "Browse and book individual pathology lab tests online. Order specific diagnostic profiles including HbA1c, Thyroid Profile, Lipid Profile, and more with professional doorstep home sample collection across India.",
+    "inLanguage": "en-IN",
+
+    "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://trigunahealthcare.com",
+        "url": "https://trigunahealthcare.com",
+        "name": "Triguna Healthcare"
+    },
+
+    "about": {
+        "@type": "Organization",
+        "@id": "https://trigunahealthcare.com#organization",
+        "name": "Triguna Healthcare",
+
+        "parentOrganization": {
+            "@type": "Organization",
+            "name": "Thyrocare Technologies Limited",
+            "url": "https://thyrocare.com"
+        }
+    }
+};
+
+const addSchema = () => {
+    const existing = document.getElementById(SCHEMA_ID);
+
+    if (existing) {
+        existing.remove();
+    }
+
+    const script = document.createElement("script");
+
+    script.id = SCHEMA_ID;
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(bloodTestSchema);
+
+    document.head.appendChild(script);
+};
+
+const removeSchema = () => {
+    const existing = document.getElementById(SCHEMA_ID);
+
+    if (existing) {
+        existing.remove();
+    }
+};
 
 // ✅ Debounce search input for performance
 let searchTimeout;
@@ -182,5 +242,12 @@ const filteredPackages = computed(() => {
     return packages.value.filter((pkg) => pkg.name1?.toLowerCase().includes(query));
 });
 
-onMounted(fetchPackages);
+onMounted(async () => {
+    addSchema();
+    await fetchPackages();
+});
+
+onUnmounted(() => {
+    removeSchema();
+});
 </script>

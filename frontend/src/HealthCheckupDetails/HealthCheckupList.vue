@@ -99,7 +99,8 @@
                             <div class="flex items-center gap-2 flex-wrap mb-1">
 
                                 <!-- Show actual price ONLY when different -->
-                                <div v-if="pkg.actual_price != pkg.discounted_price" class="text-orange-700 line-through">
+                                <div v-if="pkg.actual_price != pkg.discounted_price"
+                                    class="text-orange-700 line-through">
                                     ₹ {{ pkg.actual_price }}
                                 </div>
 
@@ -143,7 +144,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from "vue";
+import {
+    ref,
+    computed,
+    onMounted,
+    onUnmounted,
+    watch,
+    nextTick
+} from "vue";
 import axios from "axios";
 import { useRoute } from "vue-router";
 import { useCartStore } from "@/stores/cartStore";
@@ -155,41 +163,117 @@ const searchQuery = ref("");
 const packages = ref([]);
 const isLoading = ref(true);
 
-const isInCart = (pkg) => cartStore.cartItems.some((item) => item.name1 === pkg.name1);
+// =====================================================
+// CART
+// =====================================================
+
+const isInCart = (pkg) =>
+    cartStore.cartItems.some(
+        (item) => item.name1 === pkg.name1
+    );
 
 const toggleCart = (pkg) => {
-    if (!isInCart(pkg)) cartStore.addToCart(pkg);
+    if (!isInCart(pkg)) {
+        cartStore.addToCart(pkg);
+    }
 };
 
-// ✅ Debounced Search (prevents re-render spam)
+// =====================================================
+// SEARCH
+// =====================================================
+
 let searchTimeout;
+
 watch(searchQuery, () => {
     clearTimeout(searchTimeout);
+
     searchTimeout = setTimeout(() => {
         nextTick();
     }, 300);
 });
 
-// ✅ Optimized Filter
 const filteredPackages = computed(() => {
     const query = searchQuery.value.toLowerCase();
+
     return !query
         ? packages.value
-        : packages.value.filter((pkg) => pkg.name1?.toLowerCase().includes(query));
+        : packages.value.filter((pkg) =>
+            pkg.name1?.toLowerCase().includes(query)
+        );
 });
+
+// =====================================================
+// IMAGE ALT
+// =====================================================
 
 const getAltFromImage = (imageUrl, fallback) => {
     if (!imageUrl) return fallback;
 
     return imageUrl
-        .split("/")               // get last part
-        .pop()                     // filename
-        .split(".")[0]             // remove extension
-        .replace(/[-_]/g, " ")     // clean hyphens/underscores
-        .replace(/\b\w/g, c => c.toUpperCase()); // capitalize
+        .split("/")
+        .pop()
+        .split(".")[0]
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase());
 };
 
-// ✅ Fetch Data with Graceful Fallback
+// =====================================================
+// SCHEMA.ORG
+// =====================================================
+
+const SCHEMA_ID = "health-checkup-schema";
+
+const generateSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://www.trigunahealthcare.com/full-body-health-checkups",
+    "url": "https://www.trigunahealthcare.com/full-body-health-checkups",
+    "name": "Full Body Health Checkup Packages Online | Triguna Healthcare",
+    "description":
+        "Browse and book comprehensive preventive full body health checkup packages online. Access master wellness profiles and routine health checkups with convenient doorstep home sample collection across India.",
+    "inLanguage": "en-IN",
+
+    "about": {
+        "@type": "Organization",
+        "@id": "https://www.trigunahealthcare.com/#organization",
+        "name": "Triguna Healthcare",
+
+        "parentOrganization": {
+            "@type": "Organization",
+            "name": "Thyrocare Technologies Limited",
+            "url": "https://thyrocare.com"
+        }
+    },
+});
+
+const addSchema = () => {
+    const existing = document.getElementById(SCHEMA_ID);
+
+    if (existing) {
+        existing.remove();
+    }
+
+    const script = document.createElement("script");
+
+    script.id = SCHEMA_ID;
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(generateSchema());
+
+    document.head.appendChild(script);
+};
+
+const removeSchema = () => {
+    const existing = document.getElementById(SCHEMA_ID);
+
+    if (existing) {
+        existing.remove();
+    }
+};
+
+// =====================================================
+// API
+// =====================================================
+
 const fetchPackages = async () => {
     try {
         isLoading.value = true;
@@ -204,36 +288,52 @@ const fetchPackages = async () => {
                 : "";
 
         const apiUrl = category
-            ? `/api/method/bloodtestnearme.api.packages.get_packages?category=${encodeURIComponent(category)}`
+            ? `/api/method/bloodtestnearme.api.packages.get_packages?category=${encodeURIComponent(
+                category
+            )}`
             : "/api/method/bloodtestnearme.api.packages.get_package_based_tests";
 
         const { data } = await axios.get(apiUrl);
-        packages.value = data?.message?.data || data?.data || [];
+
+        packages.value =
+            data?.message?.data ||
+            data?.data ||
+            [];
+
+        // Update schema after package data loads
+        addSchema();
     } catch (error) {
-        console.error("❌ Error fetching packages:", error);
+        console.error(
+            "❌ Error fetching packages:",
+            error
+        );
+
         packages.value = [];
     } finally {
         isLoading.value = false;
     }
 };
 
+// =====================================================
+// ROUTE WATCH
+// =====================================================
 
+watch(
+    () => route.params.category,
+    async () => {
+        await fetchPackages();
+    }
+);
 
-// 🔄 React to category change
-watch(() => route.params.category, fetchPackages);
+// =====================================================
+// LIFECYCLE
+// =====================================================
 
-onMounted(fetchPackages);
+onMounted(async () => {
+    await fetchPackages();
+});
+
+onUnmounted(() => {
+    removeSchema();
+});
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: all 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-    transform: translateY(10px);
-}
-</style>
